@@ -1,0 +1,428 @@
+{
+  "version": "0.5.0",
+  "entries": [
+    {
+      "historical": "n'aburu",
+      "modern": "n'agbụrụ",
+      "status": "PENDING",
+      "confidence": "UNRESOLVED",
+      "evidence": "IA print scan, PDF p. 229 / printed p. 233, Judges 13:2 (https://archive.org/download/IBOILB_DBS_HS/Igbo-Bible-%28print%29.pdf#page=229); Nkọwa okwu dictionary, agbụrụ (https://nkowaokwu.com/word?word=agburu); docs/igbob-research.md, Marked-b glyph section.",
+      "notes": "Deferred: this lexical mapping inserts underdots into source dotless u vowels. The active project constraint requires preserving all underdots exactly; apply only the systematic marked-b-to-gb character rule until a separate lexical review explicitly permits vowel changes.",
+      "version": "0.4.0"
+    },
+    {
+      "historical": "ab͕uru",
+      "modern": "agbụrụ",
+      "status": "PENDING",
+      "confidence": "UNRESOLVED",
+      "evidence": "Printed Union-family witness, Judges 13:2 and repeated corpus contexts; Nkọwa okwu dictionary entry agbụrụ (https://nkowaokwu.com/word?word=agburu), whose examples include n'agbụrụ ndị Igbo; IIALC Practical Orthography of African Languages (1930), Union Ibo consonant correspondence. See docs/igbob-research.md.",
+      "notes": "Deferred: this lexical mapping inserts underdots into source dotless u vowels. The active project constraint requires preserving all underdots exactly; apply only the systematic marked-b-to-gb character rule until a separate lexical review explicitly permits vowel changes.",
+      "version": "0.4.0"
+    },
+    {
+      "historical": "Ab͕uru",
+      "modern": "Agbụrụ",
+      "status": "PENDING",
+      "confidence": "UNRESOLVED",
+      "evidence": "Printed Union-family witness, Judges 13:2 and repeated corpus contexts; Nkọwa okwu dictionary entry agbụrụ (https://nkowaokwu.com/word?word=agburu), whose examples include n'agbụrụ ndị Igbo; IIALC Practical Orthography of African Languages (1930), Union Ibo consonant correspondence. See docs/igbob-research.md.",
+      "notes": "Deferred: this lexical mapping inserts underdots into source dotless u vowels. The active project constraint requires preserving all underdots exactly; apply only the systematic marked-b-to-gb character rule until a separate lexical review explicitly permits vowel changes.",
+      "version": "0.4.0"
+    },
+    {
+      "historical": "n'ab͕uru",
+      "modern": "n'agbụrụ",
+      "status": "PENDING",
+      "confidence": "UNRESOLVED",
+      "evidence": "Printed Union-family witness, Judges 13:2; Nkọwa okwu dictionary entry agbụrụ (https://nkowaokwu.com/word?word=agburu), including n'agbụrụ usage; see docs/igbob-research.md.",
+      "notes": "Deferred: this lexical mapping inserts underdots into source dotless u vowels. The active project constraint requires preserving all underdots exactly; apply only the systematic marked-b-to-gb character rule until a separate lexical review explicitly permits vowel changes.",
+      "version": "0.4.0"
+    },
+    {
+      "historical": "ulo-ikwū",
+      "modern": "ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwū",
+      "modern": "ọmuma-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-ikwū-ha",
+      "modern": "ulo-ikwuu-ha",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ulo-ikwū",
+      "modern": "n'ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ọmuma-ulo-ikwū",
+      "modern": "n'ọmuma-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-ikwū-ya",
+      "modern": "ulo-ikwuu-ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "Ulo-ikwū",
+      "modern": "Ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ulo-ikwū-ya",
+      "modern": "n'ulo-ikwuu-ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwū-ha",
+      "modern": "ọmuma-ulo-ikwuu-ha",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ulo-ikwū-ha",
+      "modern": "n'ulo-ikwuu-ha",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-ikwūm",
+      "modern": "ulo-ikwuum",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'Ulo-ikwū",
+      "modern": "n'Ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwū-ya",
+      "modern": "ọmuma-ulo-ikwuu-ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-ikwū-gi",
+      "modern": "ulo-ikwuu-gi",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ulo-ikwū-unu",
+      "modern": "n'ulo-ikwuu-unu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ọmuma-ulo-ikwū-ha",
+      "modern": "n'ọmuma-ulo-ikwuu-ha",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-ikwū-unu",
+      "modern": "ulo-ikwuu-unu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwū-gi",
+      "modern": "ọmuma-ulo-ikwuu-gi",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-ikwū-Ya",
+      "modern": "ulo-ikwuu-Ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ebe-ulo-ikwū",
+      "modern": "ebe-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwū-Ya",
+      "modern": "ọmuma-ulo-ikwuu-Ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwū-unu",
+      "modern": "ọmuma-ulo-ikwuu-unu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ulo-ikwū-gi",
+      "modern": "n'ulo-ikwuu-gi",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "N'ulo-ikwū",
+      "modern": "N'ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "Ọmuma-ulo-ikwū",
+      "modern": "Ọmuma-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "omuma-ulo-ikwū",
+      "modern": "omuma-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ebe-ulo-ikwū-ha",
+      "modern": "ebe-ulo-ikwuu-ha",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-ikwū-ayi",
+      "modern": "ulo-ikwuu-ayi",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwūm",
+      "modern": "ọmuma-ulo-ikwuum",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "N'ọmuma-ulo-ikwū",
+      "modern": "N'ọmuma-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ebe-ulo-ikwū-ya",
+      "modern": "ebe-ulo-ikwuu-ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ebe-ulo-ikwū",
+      "modern": "n'ebe-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ma-ulo-ikwū-ya",
+      "modern": "ma-ulo-ikwuu-ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ọmuma-ulo-ikwū-ya",
+      "modern": "n'ọmuma-ulo-ikwuu-ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "nulo-ikwū-gi",
+      "modern": "nulo-ikwuu-gi",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'omuma-ulo-ikwū",
+      "modern": "n'omuma-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "nime-ulo-ikwū",
+      "modern": "nime-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ọmuma-ulo-ikwū-ayi",
+      "modern": "ọmuma-ulo-ikwuu-ayi",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "buruburu-ọmuma-ulo-ikwū",
+      "modern": "buruburu-ọmuma-ulo-ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "Ulo-ikwūm",
+      "modern": "Ulo-ikwuum",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "ulo-Ikwū",
+      "modern": "ulo-Ikwuu",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ulo-ikwū-Ya",
+      "modern": "n'ulo-ikwuu-Ya",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    },
+    {
+      "historical": "n'ulo-ikwū-Gi",
+      "modern": "n'ulo-ikwuu-Gi",
+      "status": "APPROVED",
+      "confidence": "PROVEN",
+      "evidence": "Lepsius, Standard Alphabet (1863), https://www.loc.gov/item/11010936/; contemporaneous explanation of its macron as long quantity, https://upload.wikimedia.org/wikipedia/commons/c/cf/On_Lepsius%27s_Standard_Alphabet_%28IA_jstor-592160%29.pdf; Oyali, Bible Translation and Language Elaboration: The Igbo Experience, UIB in Lepsius orthography, https://epub.uni-bayreuth.de/id/eprint/4298/1/Bible%20Translation%20and%20Language%20Elaboration%20%E2%80%93%20The%20Igbo%20Experience.pdf; Kay Williamson, Igbo Dictionary, “ikwuù” / “ụnò ikwuù”, tent/booth, https://www.columbia.edu/itc/mealac/pritchett/00fwp/igbo/IGBO%20Dictionary.pdf; Nkọwa okwu, standard entry “ụlọikwuu”, https://nkowaokwu.com/search?word=house; visual collation of Union-family printed scan, Deuteronomy p.165, Matthew p.21, 2 Corinthians p.174, Hebrews p.217, https://archive.org/details/igbo-bible-print.",
+      "notes": "Reviewed lexical mapping for the documented ulo-ikwū tent/tabernacle family only: the Lepsius long-vowel mark on the final u corresponds to the standard doubled-vowel spelling uu. This exact surface-form entry preserves all other letters, underdot states, capitalization, apostrophes, hyphens, whitespace, and attached morphology. It does not authorize generic ū removal or a mapping for unrelated ū forms.",
+      "version": "0.5.0"
+    }
+  ]
+}

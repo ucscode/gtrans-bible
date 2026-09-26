@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "release_version": "0.5.0",
+  "edition_id": "igbob-modern",
+  "required_source_lock_version": 1,
+  "historical_source_database_sha256": "e5b5a6365c8bdf430f6c9d882a829a2a658553b64651903390b5c018115ba22b",
+  "normalization_ruleset_version": "0.5.0",
+  "normalization_rules_sha256": "372854fa7dfd66543eb904f14a30584ae15de51061b38b8311bcacdebf6fcf02",
+  "reviewed_lexicon_version": "0.5.0",
+  "reviewed_lexicon_sha256": "b6728e42fd53a1baafd675b41c9dbc0e632f1d5b4d63e654daa21506ebf588d6",
+  "expected_verse_count": 31103,
+  "expected_changed_verse_count": 21832,
+  "expected_unchanged_verse_count": 9271,
+  "expected_transformation_count": 51143,
+  "expected_unresolved_counts": {
+    "macron_codepoint_occurrences": 567,
+    "macron_token_occurrences": 565,
+    "macron_unique_forms": 201,
+    "macron_affected_verses": 521,
+    "suspicious_symbol_occurrences": 430,
+    "suspicious_symbol_affected_verses": 143
+  },
+  "modern_content_sha256": "11cc6bcbb330c2c1f3843cfc74d227c13dfd8f43d8de503f16fad0e02362ac89",
+  "database_sha256": "86ef8ceb731186627511027d50ff384ed62dd59441a5bc1650f5b02297aba626",
+  "canonical_structure_sha256": "fa9cf97bb6e6cb351ea913e55cc927668947b8b3dc6acd57cbbd5280943819a2",
+  "artifact_binary_hash_policy": "Recorded for identification; logical content/structure hashes are mandatory. SQLite binary hashes may vary by SQLite build and are reported rather than used as the sole content identity.",
+  "artifacts": {
+    "bible.sqlite": {
+      "database_sha256": "28757217c25f70571f5f01c6b7b7a46488e3ee635c544d8c8b561a151fe47fc3",
+      "logical_sha256": "fa9cf97bb6e6cb351ea913e55cc927668947b8b3dc6acd57cbbd5280943819a2"
+    },
+    "kjv.sqlite": {
+      "database_sha256": "6dca5c0ae33d5e9c0875dd127854fd435c5f5dbb444cd5d6a53ec7ea2b35dd5d",
+      "logical_content_sha256": "21d9907e7768b37353fef12ba962fad02d8760d2c4e111003571e5e7b1220edc",
+      "verse_count": 31103
+    },
+    "igbob.sqlite": {
+      "database_sha256": "e5b5a6365c8bdf430f6c9d882a829a2a658553b64651903390b5c018115ba22b",
+      "logical_content_sha256": "4ac560cff5a35be89ce8fb5762131054e70a96380eba3ccbbf7a32a1551ae4a9",
+      "verse_count": 31103
+    },
+    "igbob-modern.sqlite": {
+      "database_sha256": "86ef8ceb731186627511027d50ff384ed62dd59441a5bc1650f5b02297aba626",
+      "logical_content_sha256": "11cc6bcbb330c2c1f3843cfc74d227c13dfd8f43d8de503f16fad0e02362ac89",
+      "verse_count": 31103
+    }
+  },
+  "recovery_manifest": {
+    "source_id": "gap_recovery",
+    "private_path": "research/igbob-source/mobobi-gap-recovery.json",
+    "sha256": "b8551d5fac5ef5d85f2e6c3174d577e9fdd966431f061d2643838b6d76c29fbd",
+    "verse_count": 72,
+    "count_by_book": {"Numbers": 47, "Job": 10, "3 John": 15}
+  }
+}

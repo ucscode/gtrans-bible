@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oicb-builder"
+version = "0.1.0"
+description = "Deterministic SQLite dataset builder for the Biblica Open Igbo Contemporary Bible"
+requires-python = ">=3.10"
+dependencies = ["python-dotenv>=1.0,<2"]
+
+[project.scripts]
+igbo-research = "builder.research_cli:main"
+
+[project.optional-dependencies]
+translate = ["google-cloud-translate>=3.27.0,<4"]
+
+[tool.setuptools.packages.find]
+include = ["builder*"]

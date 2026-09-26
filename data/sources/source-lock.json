@@ -1,0 +1,140 @@
+{
+  "lock_version": 1,
+  "schema_version": 1,
+  "description": "Metadata-only source inventory and exact hashes for the local IGBOB 0.5.0 rebuild. Bible text and binary sources are not embedded.",
+  "sources": [
+    {
+      "source_id": "oicb_archive",
+      "purpose": "Canonical book/chapter/verse structure and OICB edition; parsed once into bible.sqlite and oicb.sqlite.",
+      "source_type": "public upstream archive",
+      "upstream_url": "https://openbible-api-1.biblica.com/artifactContent/64c02602a4e86765a266c7a4",
+      "upstream_title": "Open Igbo Contemporary Bible USFM artifact",
+      "expected_filename": "oicb-usfm.zip",
+      "path": "downloads/oicb-usfm.zip",
+      "sha256": "8909c1b38e5e5ff7f7ec625bd64889cfc78b937e2ed0daf1a53e2cb20655d765",
+      "rights_status": "CC BY-SA 4.0 according to Open.Bible; observe attribution, share-alike, and trademark conditions before redistribution.",
+      "required_for_rebuild": true,
+      "private_backup_required": true,
+      "retrieval_notes": "Do not depend on re-downloading this opaque URL: retain the exact archive identified by this digest."
+    },
+    {
+      "source_id": "kjv_archive",
+      "purpose": "Build the separate KJV edition database and cross-check canonical verse IDs.",
+      "source_type": "public upstream archive",
+      "upstream_url": "https://ebible.org/bible/details.php?id=eng-kjv2006",
+      "upstream_title": "eBible KJV 2006 USFM",
+      "expected_filename": "eng-kjv2006_usfm.zip",
+      "path": "downloads/kjv/eng-kjv2006_usfm.zip",
+      "sha256": "58a1b88c42f1c923bf1aae2fafdfcb0468d02b15c4cf1b0a5b7d93ab537061bb",
+      "rights_status": "eBible source identifies the KJV as public domain; preserve source provenance and confirm jurisdictional status for any distribution.",
+      "required_for_rebuild": true,
+      "private_backup_required": true,
+      "retrieval_notes": "Retain the exact archive; a future source package may differ."
+    },
+    {
+      "source_id": "mobobi_apk",
+      "purpose": "Primary input for all 66 historical IGBOB book assets; importer reads UTF-16 text assets directly from the APK ZIP.",
+      "source_type": "private local application package",
+      "upstream_url": "https://apkpure.net/igbo-bible-igbo-english/com.mobobi.igbobible/download",
+      "upstream_title": "Bible Nso (IGBOB), package com.mobobi.igbobible",
+      "package_id": "com.mobobi.igbobible",
+      "version": "2.0",
+      "expected_filename": "com.mobobi.igbobible-2.0.apk",
+      "path": "private-source/com.mobobi.igbobible-2.0.apk",
+      "sha256": "f67f9e533d8a98a2684a6732ab5952167ee4617bb51ca0473199b84e2d1049fc",
+      "rights_status": "Text redistribution/adaptation rights unresolved; private research input only.",
+      "required_for_rebuild": true,
+      "private_backup_required": true,
+      "retrieval_notes": "The public APKPure version 2.0 candidate was recovered and its bytes matched this expected SHA-256. Preserve this exact package; do not substitute a later version. APKPure version/download page: https://apkpure.net/igbo-bible-igbo-english/com.mobobi.igbobible/download. Local availability belongs in the generated private-backup manifest."
+    },
+    {
+      "source_id": "gap_recovery",
+      "purpose": "Private exact text and witness attribution for the 72 composite gaps: 47 Numbers, 10 Job, and 15 3 John verses.",
+      "source_type": "private recovery manifest",
+      "upstream_url": "https://www.wordproject.org/bibles/ig/04/26.htm",
+      "upstream_title": "Manually reviewed composite recovery with per-verse witness attribution",
+      "expected_filename": "mobobi-gap-recovery.json",
+      "path": "research/igbob-source/mobobi-gap-recovery.json",
+      "sha256": "b8551d5fac5ef5d85f2e6c3174d577e9fdd966431f061d2643838b6d76c29fbd",
+      "rights_status": "Recovered text rights unresolved; keep the manifest private. Provenance URLs are metadata only and do not replace this fixed local input.",
+      "required_for_rebuild": true,
+      "private_backup_required": true,
+      "verse_count": 72,
+      "provenance_urls": [
+        "https://www.wordproject.org/bibles/ig/04/26.htm",
+        "https://www.wordproject.org/bibles/ig/18/41.htm",
+        "https://www.bible.com/bible/77/JOB.41.IGBOB",
+        "https://www.wordproject.org/bibles/ig/64/1.htm",
+        "https://www.bible.com/bible/77/3JN.1.IGBOB",
+        "https://archive.org/download/IBOILB_DBS_HS/Igbo-Bible-%28print%29.pdf#page=1049"
+      ],
+      "retrieval_notes": "Do not scrape these URLs during a rebuild. The local manifest is the fixed input and must be restored from private backup."
+    },
+    {
+      "source_id": "igbob_print_scan",
+      "purpose": "Local primary-source reference used to verify the historical witness and evaluate OCR; not consumed by the database build.",
+      "source_type": "Internet Archive scan copy",
+      "upstream_url": "https://archive.org/details/igbo-bible-print",
+      "upstream_title": "Igbo Bible (print) scan",
+      "expected_filename": "Igbo-Bible-print.pdf",
+      "path": "research/igbob-source/Igbo-Bible-print.pdf",
+      "sha256": "62fd56e3b952ff0f53a681ecf5d7f00c7017ee0243f2f3683673f3b956c865bc",
+      "rights_status": "Rights/distribution status unresolved; do not publish the scan or OCR assets.",
+      "required_for_rebuild": false,
+      "private_backup_required": true,
+      "retrieval_notes": "Scan is research evidence, not a substitute for the Mobobi APK or the exact recovery manifest."
+    },
+    {
+      "source_id": "normalization_rules",
+      "purpose": "Committed v0.5.0 normalization rules and review detectors.",
+      "source_type": "project source metadata",
+      "upstream_url": null,
+      "upstream_title": "IGBOB normalization ruleset",
+      "expected_filename": "rules.json",
+      "path": "normalization/rules.json",
+      "sha256": "372854fa7dfd66543eb904f14a30584ae15de51061b38b8311bcacdebf6fcf02",
+      "rights_status": "Project-authored metadata; contains no verse corpus.",
+      "required_for_rebuild": true,
+      "private_backup_required": false,
+      "version": "0.5.0",
+      "retrieval_notes": "Commit this file with the source code."
+    },
+    {
+      "source_id": "reviewed_lexicon",
+      "purpose": "Committed reviewed lexical mappings required by normalization v0.5.0.",
+      "source_type": "project source metadata",
+      "upstream_url": null,
+      "upstream_title": "IGBOB reviewed normalization lexicon",
+      "expected_filename": "reviewed-lexicon.json",
+      "path": "normalization/reviewed-lexicon.json",
+      "sha256": "b6728e42fd53a1baafd675b41c9dbc0e632f1d5b4d63e654daa21506ebf588d6",
+      "rights_status": "Project-authored reviewed metadata; contains lexical examples, not substantial verse text.",
+      "required_for_rebuild": true,
+      "private_backup_required": false,
+      "version": "0.5.0",
+      "retrieval_notes": "Commit this file with the source code and normalization engine."
+    }
+  ],
+  "derived_artifacts": [
+    {
+      "path": "databases/bible.sqlite",
+      "derivation": "Parse the exact locked OICB USFM archive once; build only canonical structure from its validated verse markers.",
+      "current_sha256": "28757217c25f70571f5f01c6b7b7a46488e3ee635c544d8c8b561a151fe47fc3"
+    },
+    {
+      "path": "databases/kjv.sqlite",
+      "derivation": "Extract and parse the exact locked eBible KJV 2006 USFM archive against canonical structure.",
+      "current_sha256": "6dca5c0ae33d5e9c0875dd127854fd435c5f5dbb444cd5d6a53ec7ea2b35dd5d"
+    },
+    {
+      "path": "databases/igbob.sqlite",
+      "derivation": "Parse the exact locked Mobobi APK assets and apply the fixed private 72-verse recovery manifest.",
+      "current_sha256": "e5b5a6365c8bdf430f6c9d882a829a2a658553b64651903390b5c018115ba22b"
+    },
+    {
+      "path": "databases/igbob-modern.sqlite",
+      "derivation": "Normalize the generated historical IGBOB database with the locked 0.5.0 rules and reviewed lexicon.",
+      "current_sha256": "86ef8ceb731186627511027d50ff384ed62dd59441a5bc1650f5b02297aba626"
+    }
+  ]
+}

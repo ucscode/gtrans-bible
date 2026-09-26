@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+*.service-account.json
+credentials/
+*.key
+*.pem
+*.apk
+
+# Downloaded, extracted, and generated Bible data.
+/data/downloads/
+/data/extracted/
+/data/databases/
+/data/generated/
+
+# Private historical source inputs that are not covered by the general research tree.
+/data/private-source/
+/data/**/*.apk
+
+# Copyright-restricted historical OCR and local corpus-analysis reports.
+/data/research/
+
+# Explicitly publish only reviewed, text-free provenance/release metadata under data/.
+# These files are intentionally not ignored:
+# /data/sources/source-lock.json
+# /data/releases/igbob-modern-v0.5.0.json
