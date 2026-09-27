@@ -36,6 +36,8 @@
     <string name="about_purpose">An offline reading companion with IGBOB (mod) and the English King James Version (KJV).</string>
     <string name="about_translation_note">The Igbo text preserves the historic IGBOB translation while updating historical orthography for readability.</string>
     <string name="privacy_options">Privacy options</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="share_app">Share App</string>
     <string name="about_version_title">App version</string>
     <string name="about_creator_title">Created by</string>
     <string name="about_creator_description">Built by Ucscode, a software studio focused on practical digital products.</string>

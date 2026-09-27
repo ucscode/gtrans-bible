@@ -368,5 +368,8 @@
         <include layout="@layout/row_navigation_books" />
         <include layout="@layout/row_navigation_daily_verse" />
         <include layout="@layout/row_navigation_about" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginHorizontal="24dp" android:layout_marginVertical="12dp" android:background="@color/chapter_tile_border" />
+        <include layout="@layout/row_navigation_rate_us" />
+        <include layout="@layout/row_navigation_share_app" />
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

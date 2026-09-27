@@ -49,6 +49,8 @@ import com.ucscode.gtransbible.daily.DailyVerseNotificationScheduler
 import com.ucscode.gtransbible.daily.DailyVerseRepository
 import com.ucscode.gtransbible.daily.OurMannaDailyVerseApi
 import com.ucscode.gtransbible.daily.SharedPreferencesDailyVerseStore
+import com.ucscode.gtransbible.engagement.PlayReviewAction
+import com.ucscode.gtransbible.engagement.ShareApp
 import java.io.File
 import java.util.concurrent.Executors
 import kotlin.math.abs
@@ -263,6 +265,14 @@ class MainActivity : AppCompatActivity() {
         privacyOptionsButton.apply {
             paintFlags = paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
             setOnClickListener { (application as BibleApplication).adsController.showPrivacyOptions(this@MainActivity) }
+        }
+        findViewById<View>(R.id.navRateUs).setOnClickListener {
+            drawer.closeDrawer(GravityCompat.START)
+            PlayReviewAction.request(this)
+        }
+        findViewById<View>(R.id.navShareApp).setOnClickListener {
+            drawer.closeDrawer(GravityCompat.START)
+            runCatching { ShareApp.launchChooser(this) }
         }
         findViewById<View>(R.id.browseButton).setOnClickListener { showBooks() }
         homeContinueButton.setOnClickListener { continueReading() }
