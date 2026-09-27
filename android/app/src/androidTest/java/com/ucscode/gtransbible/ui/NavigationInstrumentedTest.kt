@@ -82,8 +82,14 @@ class NavigationInstrumentedTest {
             await(scenario) { it.findViewById<View>(R.id.aboutScreen).visibility == View.VISIBLE }
             scenario.onActivity { activity ->
                 assertTrue(activity.findViewById<View>(R.id.navAbout).isSelected)
-                assertEquals("Ucscode", activity.findViewById<TextView>(R.id.aboutCreatorValue).text.toString())
-                assertTrue(activity.findViewById<TextView>(R.id.aboutCreatorDescription).text.isNotBlank())
+                assertEquals(
+                    "Built by Ucscode, a software studio focused on practical digital products.",
+                    activity.findViewById<TextView>(R.id.aboutCreatorDescription).text.toString(),
+                )
+                assertEquals(
+                    "The Igbo text preserves the historic IGBOB translation while updating historical orthography for readability.",
+                    activity.findViewById<TextView>(R.id.aboutTranslationNote).text.toString(),
+                )
                 assertEquals("ucscode.com", activity.findViewById<TextView>(R.id.websiteText).text.toString())
             }
 
@@ -101,7 +107,7 @@ class NavigationInstrumentedTest {
                 assertEquals("Genesis", activity.findViewById<TextView>(R.id.chapterEnglishTitle).text.toString())
                 val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
                 assertTrue((list.layoutManager as GridLayoutManager).spanCount in 4..5)
-                val chapterSidePadding = (12 * activity.resources.displayMetrics.density).toInt()
+                val chapterSidePadding = (10 * activity.resources.displayMetrics.density).toInt()
                 assertEquals(chapterSidePadding, list.paddingLeft)
                 assertEquals(chapterSidePadding, list.paddingRight)
                 val tile = list.findViewHolderForAdapterPosition(0)!!.itemView
@@ -121,22 +127,27 @@ class NavigationInstrumentedTest {
                 retainedLayout[0] = activity.findViewById<View>(R.id.plainButton).isSelected
                 retainedLayout[1] = activity.findViewById<View>(R.id.sideButton).isSelected
                 retainedLayout[2] = activity.findViewById<View>(R.id.followButton).isSelected
-                activity.findViewById<View>(R.id.chapterNavigationLabel).performClick()
+                val title = activity.findViewById<View>(R.id.screenTitleRow)
+                assertTrue(title.isClickable && title.isFocusable)
+                assertEquals("Choose book, currently reading Jenesis 1", title.contentDescription.toString())
+                assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.screenTitleDropdown).visibility)
+                title.performClick()
             }
-            await(scenario) { it.chapterPickerDialog?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)?.adapter?.itemCount == 50 }
+            await(scenario) { it.bookPickerDialog?.listView?.count == 66 }
             scenario.onActivity { activity ->
-                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
-                assertTrue((picker.layoutManager as GridLayoutManager).spanCount in 4..5)
-                val tile = picker.findViewHolderForAdapterPosition(0)!!.itemView
-                assertTrue(tile is ChapterTileView && tile.isSelected)
-                assertTrue(picker.isVerticalScrollBarEnabled)
-                assertTrue(!picker.isScrollbarFadingEnabled)
-                assertTrue(picker.height <= activity.resources.displayMetrics.heightPixels)
+                val picker = activity.bookPickerDialog!!.listView
+                assertEquals(66, picker.count)
+                assertEquals(0, picker.checkedItemPosition)
+                picker.performItemClick(picker.getChildAt(0), 0, picker.adapter.getItemId(0))
+            }
+            await(scenario) {
+                it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 50 &&
+                    it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).layoutManager is GridLayoutManager
             }
             scenario.onActivity { activity ->
-                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
-                picker.scrollToPosition(9)
-                picker.post { picker.findViewHolderForAdapterPosition(9)?.itemView?.performClick() }
+                val chapters = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                assertTrue((chapters.layoutManager as GridLayoutManager).spanCount in 4..5)
+                chapters.findViewHolderForAdapterPosition(9)!!.itemView.performClick()
             }
             await(scenario) {
                 it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Jenesis 10" &&
@@ -175,6 +186,8 @@ class NavigationInstrumentedTest {
                 val igboEdition = activity.findViewById<TextView>(R.id.editionIgboButton)
                 val kjvEdition = activity.findViewById<TextView>(R.id.editionKjvButton)
                 assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.plainEditionSelector).visibility)
+                assertEquals("IGBOB (mod)", igboEdition.text.toString())
+                assertEquals("KJV", kjvEdition.text.toString())
                 assertTrue(igboEdition.isClickable)
                 assertTrue(kjvEdition.isClickable)
                 val wasIgboSelected = igboEdition.isSelected

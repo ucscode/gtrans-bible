@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationButton: ImageButton
     private lateinit var list: RecyclerView
     private lateinit var screenTitle: TextView
+    private lateinit var screenTitleRow: View
+    private lateinit var screenTitleDropdown: View
     private lateinit var chapterEnglishTitle: TextView
     private lateinit var statusText: TextView
     private lateinit var homeScreen: View
@@ -84,6 +86,8 @@ class MainActivity : AppCompatActivity() {
     private var navigationGeneration = 0
     private var startupComplete = false
     internal var chapterPickerDialog: AlertDialog? = null
+        private set
+    internal var bookPickerDialog: AlertDialog? = null
         private set
 
     private val preferences by lazy { getSharedPreferences("reader_preferences", MODE_PRIVATE) }
@@ -164,6 +168,8 @@ class MainActivity : AppCompatActivity() {
         navigationButton = findViewById(R.id.navigationButton)
         list = findViewById(R.id.list)
         screenTitle = findViewById(R.id.screenTitle)
+        screenTitleRow = findViewById(R.id.screenTitleRow)
+        screenTitleDropdown = findViewById(R.id.screenTitleDropdown)
         chapterEnglishTitle = findViewById(R.id.chapterEnglishTitle)
         statusText = findViewById(R.id.statusText)
         homeScreen = findViewById(R.id.homeScreen)
@@ -197,6 +203,9 @@ class MainActivity : AppCompatActivity() {
         navigationButton.setOnClickListener {
             if (screen == Screen.CHAPTERS || screen == Screen.READER) navigateBack()
             else drawer.openDrawer(GravityCompat.START)
+        }
+        screenTitleRow.setOnClickListener {
+            if (screen == Screen.READER) openBookPicker()
         }
         findViewById<View>(R.id.navHome).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showHome() }
         findViewById<View>(R.id.navBooks).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showBooks() }
@@ -297,6 +306,7 @@ class MainActivity : AppCompatActivity() {
         selectedChapter = null
         hideScreens()
         screenTitle.text = getString(R.string.app_name)
+        setScreenTitleBookPicker(false)
         chapterEnglishTitle.visibility = View.GONE
         updateDrawerSelection(Screen.HOME)
         navigationButton.setImageResource(R.drawable.ic_menu)
@@ -311,6 +321,7 @@ class MainActivity : AppCompatActivity() {
         selectedChapter = null
         hideScreens()
         screenTitle.text = getString(R.string.books_title)
+        setScreenTitleBookPicker(false)
         chapterEnglishTitle.visibility = View.GONE
         updateDrawerSelection(Screen.BOOKS)
         navigationButton.setImageResource(R.drawable.ic_menu)
@@ -327,6 +338,7 @@ class MainActivity : AppCompatActivity() {
         screen = Screen.ABOUT
         hideScreens()
         screenTitle.text = getString(R.string.about)
+        setScreenTitleBookPicker(false)
         chapterEnglishTitle.visibility = View.GONE
         updateDrawerSelection(Screen.ABOUT)
         navigationButton.setImageResource(R.drawable.ic_menu)
@@ -373,6 +385,7 @@ class MainActivity : AppCompatActivity() {
         navigationButton.contentDescription = getString(R.string.go_back)
         hideScreens()
         screenTitle.text = displayIgboBookName(book.name)
+        setScreenTitleBookPicker(false)
         chapterEnglishTitle.text = book.englishName
         chapterEnglishTitle.visibility = View.VISIBLE
         updateDrawerSelection(Screen.BOOKS)
@@ -412,6 +425,7 @@ class MainActivity : AppCompatActivity() {
         navigationButton.setImageResource(R.drawable.ic_arrow_back)
         navigationButton.contentDescription = getString(R.string.go_back)
         screenTitle.text = getString(R.string.reader_title, displayIgboBookName(book.name), chapterNumber)
+        setScreenTitleBookPicker(true)
         chapterEnglishTitle.visibility = View.GONE
         updateDrawerSelection(Screen.BOOKS)
         if (transition == null) {
@@ -554,6 +568,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun openBookPicker() {
+        if (screen != Screen.READER || books.isEmpty()) return
+        val currentBookId = selectedBook?.id
+        val selectedIndex = books.indexOfFirst { it.id == currentBookId }.coerceAtLeast(0)
+        val bookLabels = books.map { book ->
+            getString(R.string.book_picker_item, displayIgboBookName(book.name), book.englishName)
+        }.toTypedArray()
+        lateinit var dialog: AlertDialog
+        dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.choose_book)
+            .setSingleChoiceItems(bookLabels, selectedIndex) { _, which ->
+                val book = books.getOrNull(which) ?: return@setSingleChoiceItems
+                dialog.dismiss()
+                selectBook(book)
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .create()
+        bookPickerDialog = dialog
+        dialog.setOnDismissListener { bookPickerDialog = null }
+        dialog.show()
+    }
+
     private fun openChapterPicker() {
         val book = selectedBook ?: return
         val dataRepository = repository ?: return
@@ -605,6 +641,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
+
+    private fun setScreenTitleBookPicker(enabled: Boolean) {
+        screenTitleRow.isClickable = enabled
+        screenTitleRow.isFocusable = enabled
+        screenTitleRow.minimumHeight = if (enabled) dp(SCREEN_TITLE_TOUCH_TARGET_DP) else 0
+        screenTitleDropdown.visibility = if (enabled) View.VISIBLE else View.GONE
+        screenTitleRow.contentDescription = if (enabled) {
+            val book = selectedBook
+            val chapter = selectedChapter
+            if (book != null && chapter != null) {
+                getString(R.string.reader_title_book_picker_accessibility, displayIgboBookName(book.name), chapter.number)
+            } else null
+        } else null
+    }
 
     private fun setChapterGridSidePadding(padding: Int) {
         list.setPadding(padding, list.paddingTop, padding, list.paddingBottom)
@@ -708,7 +758,8 @@ class MainActivity : AppCompatActivity() {
         const val CHAPTER_GRID_MIN_COLUMNS = 4
         const val CHAPTER_GRID_MAX_COLUMNS = 12
         const val CHAPTER_GRID_TARGET_CELL_DP = 80
-        const val CHAPTER_GRID_SIDE_PADDING_DP = 12
+        const val CHAPTER_GRID_SIDE_PADDING_DP = 10
+        const val SCREEN_TITLE_TOUCH_TARGET_DP = 48
         const val DIALOG_CONTENT_INSET_DP = 32
         const val DIALOG_CHROME_HEIGHT_DP = 132
         const val CHAPTER_TRANSITION_MS = 180L

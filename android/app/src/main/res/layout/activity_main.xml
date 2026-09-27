@@ -36,16 +36,36 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/screenTitle"
+                <LinearLayout
+                    android:id="@+id/screenTitleRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/app_name"
-                    android:textColor="@color/reader_primary_text"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingEnd="8dp">
+                    <TextView
+                        android:id="@+id/screenTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:maxWidth="240dp"
+                        android:text="@string/app_name"
+                        android:textColor="@color/reader_primary_text"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/screenTitleDropdown"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="4dp"
+                        android:contentDescription="@null"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_expand_more"
+                        android:visibility="gone"
+                        android:tint="@color/reader_secondary_text" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/chapterEnglishTitle"
                     android:layout_width="match_parent"
@@ -220,11 +240,11 @@
             android:visibility="gone">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/about_purpose_title" android:textSize="18sp" android:textStyle="bold" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/about_purpose" android:textSize="16sp" />
+            <TextView android:id="@+id/aboutTranslationNote" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/about_translation_note" android:textSize="16sp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="@string/about_version_title" android:textSize="18sp" android:textStyle="bold" />
             <TextView android:id="@+id/versionText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="16sp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="@string/about_creator_title" android:textSize="18sp" android:textStyle="bold" />
-            <TextView android:id="@+id/aboutCreatorValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/about_creator" android:textColor="@color/reader_primary_text" android:textSize="16sp" />
-            <TextView android:id="@+id/aboutCreatorDescription" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/about_creator_description" android:textColor="@color/reader_secondary_text" android:textSize="14sp" />
+            <TextView android:id="@+id/aboutCreatorDescription" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/about_creator_description" android:textSize="16sp" />
             <TextView android:id="@+id/websiteText" android:layout_width="wrap_content" android:layout_height="48dp" android:gravity="center_vertical" android:text="@string/about_website" android:textColor="@color/website_link" android:textSize="16sp" />
         </LinearLayout>
 
