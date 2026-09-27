@@ -12,6 +12,12 @@ credentials/
 *.pem
 *.apk
 
+# Android local build state and generated, debug-only private Bible assets.
+/android/.gradle/
+/android/.kotlin/
+/android/local.properties
+/android/**/build/
+
 # Downloaded, extracted, and generated Bible data.
 /data/downloads/
 /data/extracted/

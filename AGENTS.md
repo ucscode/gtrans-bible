@@ -2,8 +2,10 @@
 
 ## Scope
 
-This repository currently contains build-time Bible dataset tooling only. Do
-not implement Android or runtime translation in this directory.
+This repository contains the Bible dataset builder and a native Android client
+under `android/`. Do not put runtime translation or Android source inside the
+Python builder. The Android client must consume the documented SQLite contract
+without changing the builder's edition schema or publication boundary.
 
 ## Storage architecture
 
@@ -38,6 +40,9 @@ cannot be ordinary foreign keys across files.
 - Keep all downloaded, extracted, and generated data under ignored `data/`
   paths. Never commit Bible archives, extracted USFM, SQLite outputs, `.env`,
   or credentials.
+- Keep SQLite files and staged private Bible assets out of Git. Android debug
+  data staging belongs under ignored build output; never bundle local research
+  Bible editions in a release variant.
 - Google translation is build-time only, resumable, hash-checked, budgeted,
   and must be tested with injected fakes rather than live API calls.
 

@@ -1,11 +1,11 @@
 # OICB Bible dataset builder
 
-This repository currently contains only the first ingestion component of the
-offline-first Android Bible project. `builder/` downloads the official Biblica
+This repository contains the ingestion component and an initial native Android
+reader for the offline-first Bible project. `builder/` downloads the official Biblica
 Open Igbo Contemporary Bible 2020 (OICB), extracts its USFM source, parses
 readable verse text, validates the result, and writes a deterministic SQLite
-database. Android and Google Cloud Translation are intentionally not included
-yet.
+database. The Android app under `android/` reads locally staged Bible files in
+debug builds only. Google Cloud Translation remains a build-time tool.
 
 ## Source and license
 

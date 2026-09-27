@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/verseRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="14dp"
+    android:paddingVertical="10dp">
+
+    <TextView
+        android:id="@+id/verseNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:textStyle="bold"
+        android:textColor="@color/reader_primary_text"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/plainText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans"
+        android:lineSpacingExtra="3dp"
+        android:textColor="@color/reader_primary_text"
+        android:textSize="18sp"
+        android:textIsSelectable="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/sideBySide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <TextView android:id="@+id/sideIgbo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="sans" android:lineSpacingExtra="2dp" android:paddingStart="0dp" android:paddingEnd="6dp" android:textColor="@color/reader_primary_text" android:textSize="16sp" android:textIsSelectable="true" />
+        <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#55808080" />
+        <TextView android:id="@+id/sideEnglish" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="sans" android:lineSpacingExtra="2dp" android:paddingStart="6dp" android:paddingEnd="0dp" android:textColor="@color/reader_secondary_text" android:textSize="15sp" android:textIsSelectable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/followUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView android:id="@+id/followIgbo" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="sans" android:lineSpacingExtra="3dp" android:textColor="@color/reader_primary_text" android:textSize="18sp" android:textIsSelectable="true" />
+        <TextView android:id="@+id/followEnglish" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="sans" android:lineSpacingExtra="2dp" android:layout_marginTop="8dp" android:paddingStart="18dp" android:paddingEnd="0dp" android:paddingTop="2dp" android:textColor="@color/reader_english_secondary" android:textSize="16sp" android:textIsSelectable="true" />
+    </LinearLayout>
+</LinearLayout>

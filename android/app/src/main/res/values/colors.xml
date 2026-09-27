@@ -1,0 +1,13 @@
+<resources>
+    <color name="reader_control_selected">#166534</color>
+    <color name="reader_control_unselected">#555555</color>
+    <color name="reader_english_secondary">#FF1F3A5F</color>
+    <color name="reader_primary_text">#FF202124</color>
+    <color name="reader_secondary_text">#FF3C4043</color>
+    <color name="drawer_selected_background">#FFE8F5E9</color>
+    <color name="drawer_selected_text">#FF14532D</color>
+    <color name="drawer_normal_text">#FF202124</color>
+    <color name="website_link">#FF1F3A5F</color>
+    <color name="chapter_indicator">#FF166534</color>
+    <color name="splash_background">#FFFFFFFF</color>
+</resources>

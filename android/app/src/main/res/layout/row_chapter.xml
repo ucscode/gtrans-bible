@@ -1,0 +1,10 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chapterNumber"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:gravity="center"
+    android:layout_margin="4dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:fontFamily="sans"
+    android:textColor="@color/reader_primary_text"
+    android:textSize="18sp" />

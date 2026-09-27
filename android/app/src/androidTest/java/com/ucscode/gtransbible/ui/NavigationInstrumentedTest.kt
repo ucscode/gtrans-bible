@@ -1,0 +1,269 @@
+package com.ucscode.gtransbible.ui
+
+import android.view.View
+import android.view.MotionEvent
+import android.os.SystemClock
+import android.widget.TextView
+import androidx.test.core.app.ActivityScenario
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import com.ucscode.gtransbible.R
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class NavigationInstrumentedTest {
+    @Test fun booksStartupHomeDrawerTestamentNamesReaderLayoutAndContinueReading() {
+        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        try {
+            await(scenario) {
+                it.findViewById<View>(R.id.booksControls).visibility == View.VISIBLE &&
+                    it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39
+            }
+            scenario.onActivity { activity ->
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.homeScreen).visibility)
+                assertTrue(activity.findViewById<View>(R.id.navBooks).isSelected)
+                activity.findViewById<View>(R.id.navigationButton).performClick()
+                activity.findViewById<View>(R.id.navHome).performClick()
+            }
+            await(scenario) { it.findViewById<View>(R.id.homeScreen).visibility == View.VISIBLE }
+            scenario.onActivity { assertTrue(it.findViewById<View>(R.id.navHome).isSelected) }
+
+            scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
+            await(scenario) { it.findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawerLayout).isDrawerOpen(androidx.core.view.GravityCompat.START) }
+            scenario.onActivity { it.findViewById<View>(R.id.navBooks).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39 }
+
+            scenario.onActivity { activity ->
+                val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                val holder = list.findViewHolderForAdapterPosition(0)!!
+                assertEquals("Jenesis", holder.itemView.findViewById<TextView>(R.id.bookName).text.toString())
+                assertEquals("Genesis", holder.itemView.findViewById<TextView>(R.id.bookEnglishName).text.toString())
+                activity.findViewById<View>(R.id.newTestamentButton).performClick()
+            }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 27 }
+            scenario.onActivity { activity ->
+                val holder = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                assertEquals("Matiu", holder.itemView.findViewById<TextView>(R.id.bookName).text.toString())
+                assertEquals("Matthew", holder.itemView.findViewById<TextView>(R.id.bookEnglishName).text.toString())
+                activity.findViewById<View>(R.id.navAbout).performClick()
+            }
+            await(scenario) { it.findViewById<View>(R.id.aboutScreen).visibility == View.VISIBLE }
+            scenario.onActivity { activity ->
+                assertTrue(activity.findViewById<View>(R.id.navAbout).isSelected)
+                assertEquals("Ucscode", activity.findViewById<TextView>(R.id.aboutCreatorValue).text.toString())
+                assertEquals("ucscode.com", activity.findViewById<TextView>(R.id.websiteText).text.toString())
+            }
+
+            scenario.onActivity { it.findViewById<View>(R.id.navHome).performClick() }
+            await(scenario) { it.findViewById<View>(R.id.homeScreen).visibility == View.VISIBLE }
+            scenario.onActivity {
+                it.findViewById<View>(R.id.browseButton).performClick()
+                it.findViewById<View>(R.id.oldTestamentButton).performClick()
+            }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39 }
+            scenario.onActivity { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).getChildAt(0).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 50 }
+            scenario.onActivity { activity ->
+                assertEquals("Jenesis", activity.findViewById<TextView>(R.id.screenTitle).text.toString())
+                assertEquals("Genesis", activity.findViewById<TextView>(R.id.chapterEnglishTitle).text.toString())
+            }
+            scenario.onActivity { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).getChildAt(0).performClick() }
+            await(scenario) {
+                it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Jenesis 1" &&
+                    it.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE &&
+                    it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount?.let { count -> count > 0 } == true
+            }
+
+            val retainedLayout = BooleanArray(3)
+            scenario.onActivity { activity ->
+                retainedLayout[0] = activity.findViewById<View>(R.id.plainButton).isSelected
+                retainedLayout[1] = activity.findViewById<View>(R.id.sideButton).isSelected
+                retainedLayout[2] = activity.findViewById<View>(R.id.followButton).isSelected
+                activity.findViewById<View>(R.id.chapterNavigationLabel).performClick()
+            }
+            await(scenario) { it.chapterPickerDialog?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)?.adapter?.itemCount == 50 }
+            scenario.onActivity { activity ->
+                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                picker.scrollToPosition(9)
+                picker.post { picker.findViewHolderForAdapterPosition(9)?.itemView?.performClick() }
+            }
+            await(scenario) {
+                it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Jenesis 10" &&
+                    it.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE &&
+                    it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount?.let { count -> count > 0 } == true
+            }
+            scenario.onActivity { activity ->
+                assertEquals(retainedLayout[0], activity.findViewById<View>(R.id.plainButton).isSelected)
+                assertEquals(retainedLayout[1], activity.findViewById<View>(R.id.sideButton).isSelected)
+                assertEquals(retainedLayout[2], activity.findViewById<View>(R.id.followButton).isSelected)
+                activity.findViewById<View>(R.id.chapterNavigationLabel).performClick()
+            }
+            await(scenario) { it.chapterPickerDialog?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)?.adapter?.itemCount == 50 }
+            scenario.onActivity { activity ->
+                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                picker.post { picker.findViewHolderForAdapterPosition(0)?.itemView?.performClick() }
+            }
+            await(scenario) {
+                it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Jenesis 1" &&
+                    it.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE
+            }
+
+            scenario.onActivity { activity ->
+                val verse = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                assertTrue(verse.itemView.findViewById<TextView>(R.id.plainText).isTextSelectable)
+                val editionButton = activity.findViewById<TextView>(R.id.plainEditionButton)
+                val currentEdition = editionButton.text.toString()
+                assertTrue(currentEdition == "Modernized Igbo" || currentEdition == "KJV")
+                activity.findViewById<View>(R.id.plainEditionButton).performClick()
+                assertTrue(editionButton.text.toString() != currentEdition)
+                activity.findViewById<View>(R.id.plainEditionButton).performClick()
+                assertEquals(currentEdition, editionButton.text.toString())
+                activity.findViewById<View>(R.id.sideButton).performClick()
+                assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.sideIndicator).visibility)
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.plainIndicator).visibility)
+            }
+            await(scenario) {
+                val verse = it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                verse.itemView.findViewById<View>(R.id.sideBySide).visibility == View.VISIBLE
+            }
+            scenario.onActivity { activity ->
+                val verse = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                assertTrue(verse.itemView.findViewById<TextView>(R.id.sideIgbo).isTextSelectable)
+                assertTrue(verse.itemView.findViewById<TextView>(R.id.sideEnglish).isTextSelectable)
+                activity.findViewById<View>(R.id.followButton).performClick()
+            }
+            await(scenario) {
+                val verse = it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                verse.itemView.findViewById<View>(R.id.followUp).visibility == View.VISIBLE
+            }
+            scenario.onActivity { activity ->
+                val verse = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                val followUp = verse.itemView.findViewById<View>(R.id.followUp) as android.widget.LinearLayout
+                val igbo = verse.itemView.findViewById<TextView>(R.id.followIgbo)
+                val english = verse.itemView.findViewById<TextView>(R.id.followEnglish)
+                assertTrue(followUp.indexOfChild(igbo) < followUp.indexOfChild(english))
+                assertTrue(igbo.isTextSelectable && english.isTextSelectable)
+                assertEquals(activity.getColor(R.color.reader_english_secondary), english.currentTextColor)
+                activity.findViewById<View>(R.id.sideButton).performClick()
+            }
+            await(scenario) {
+                val verse = it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                verse.itemView.findViewById<View>(R.id.sideBySide).visibility == View.VISIBLE
+            }
+            scenario.recreate()
+            awaitReaderChapter(scenario, "Jenesis 1")
+            scenario.onActivity { activity ->
+                assertTrue(activity.findViewById<View>(R.id.sideButton).isSelected)
+                assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.sideIndicator).visibility)
+                val verse = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
+                assertTrue(verse.itemView.findViewById<View>(R.id.sideBySide).visibility == View.VISIBLE)
+            }
+            scenario.onActivity { it.findViewById<View>(R.id.nextChapterButton).performClick() }
+            awaitReaderChapter(scenario, "Jenesis 2")
+            scenario.onActivity { activity ->
+                assertTrue(activity.findViewById<View>(R.id.sideButton).isSelected)
+            }
+            swipeReader(scenario, left = true, horizontal = true)
+            awaitReaderChapter(scenario, "Jenesis 3")
+            swipeReader(scenario, left = false, horizontal = false)
+            await(scenario) { it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Jenesis 3" }
+            swipeReader(scenario, left = false, horizontal = true)
+            awaitReaderChapter(scenario, "Jenesis 2")
+            scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 50 }
+            scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39 }
+            scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
+            await(scenario) { it.findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawerLayout).isDrawerOpen(androidx.core.view.GravityCompat.START) }
+            scenario.onActivity { it.findViewById<View>(R.id.navHome).performClick() }
+            await(scenario) { it.findViewById<View>(R.id.homeScreen).visibility == View.VISIBLE }
+            scenario.onActivity { activity ->
+                assertTrue(activity.findViewById<TextView>(R.id.continueButton).text.toString().contains("Jenesis 2"))
+                activity.findViewById<View>(R.id.continueButton).performClick()
+            }
+            await(scenario) { it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Jenesis 2" }
+
+            scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 50 }
+            scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39 }
+            scenario.onActivity { it.findViewById<View>(R.id.newTestamentButton).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 27 }
+            scenario.onActivity { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).getChildAt(0).performClick() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 28 }
+            scenario.onActivity { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).scrollToPosition(27) }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(27) != null }
+            scenario.onActivity { activity ->
+                val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                list.findViewHolderForAdapterPosition(27)!!.itemView.performClick()
+            }
+            await(scenario) { it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Matiu 28" }
+            scenario.onActivity { it.findViewById<View>(R.id.nextChapterButton).performClick() }
+            await(scenario) { it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Mak 1" }
+            scenario.onActivity { it.findViewById<View>(R.id.previousChapterButton).performClick() }
+            await(scenario) { it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Matiu 28" }
+            scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 28 }
+            scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+            await(scenario) { it.findViewById<View>(R.id.booksControls).visibility == View.VISIBLE }
+            scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+            await(scenario) { it.isFinishing }
+        } finally {
+            scenario.close()
+        }
+    }
+
+    private fun await(scenario: ActivityScenario<MainActivity>, condition: (MainActivity) -> Boolean) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        repeat(100) {
+            instrumentation.waitForIdleSync()
+            var satisfied = false
+            scenario.onActivity { satisfied = condition(it) }
+            if (satisfied) return
+            Thread.sleep(100)
+        }
+        throw AssertionError("Timed out waiting for the expected app screen state")
+    }
+
+    private fun awaitReaderChapter(scenario: ActivityScenario<MainActivity>, title: String) = await(scenario) { activity ->
+        activity.findViewById<TextView>(R.id.screenTitle).text.toString() == title &&
+            activity.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE &&
+            kotlin.math.abs(activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).translationX) < 1f
+    }
+
+    private fun swipeReader(scenario: ActivityScenario<MainActivity>, left: Boolean, horizontal: Boolean) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val bounds = IntArray(2)
+        var width = 0
+        var height = 0
+        scenario.onActivity { activity ->
+            val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+            list.getLocationOnScreen(bounds)
+            width = list.width
+            height = list.height
+        }
+        val startX: Float
+        val endX: Float
+        val startY: Float
+        val endY: Float
+        if (horizontal) {
+            startX = bounds[0] + width * if (left) 0.88f else 0.12f
+            endX = bounds[0] + width * if (left) 0.12f else 0.88f
+            startY = bounds[1] + height * 0.55f
+            endY = startY + 4f
+        } else {
+            startX = bounds[0] + width * 0.5f
+            endX = startX + 8f
+            startY = bounds[1] + height * 0.78f
+            endY = bounds[1] + height * 0.28f
+        }
+        val downTime = SystemClock.uptimeMillis()
+        instrumentation.sendPointerSync(MotionEvent.obtain(downTime, downTime, MotionEvent.ACTION_DOWN, startX, startY, 0))
+        val moveTime = downTime + 120
+        instrumentation.sendPointerSync(MotionEvent.obtain(downTime, moveTime, MotionEvent.ACTION_MOVE, endX, endY, 0))
+        instrumentation.sendPointerSync(MotionEvent.obtain(downTime, moveTime + 120, MotionEvent.ACTION_UP, endX, endY, 0))
+    }
+}
