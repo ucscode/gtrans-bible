@@ -4,9 +4,12 @@ import android.view.View
 import android.view.MotionEvent
 import android.os.SystemClock
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.ucscode.gtransbible.R
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -15,6 +18,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class NavigationInstrumentedTest {
+    @Suppress("DEPRECATION")
     @Test fun booksStartupHomeDrawerTestamentNamesReaderLayoutAndContinueReading() {
         val scenario = ActivityScenario.launch(MainActivity::class.java)
         try {
@@ -25,6 +29,31 @@ class NavigationInstrumentedTest {
             scenario.onActivity { activity ->
                 assertEquals(View.GONE, activity.findViewById<View>(R.id.homeScreen).visibility)
                 assertTrue(activity.findViewById<View>(R.id.navBooks).isSelected)
+                val adSlot = activity.findViewById<View>(R.id.bottomAdSlot)
+                assertEquals(View.GONE, adSlot.visibility)
+                assertEquals(0, adSlot.height)
+                assertEquals(android.graphics.Color.TRANSPARENT, activity.window.statusBarColor)
+                val root = activity.findViewById<View>(R.id.drawerLayout)
+                val insets = ViewCompat.getRootWindowInsets(root)!!
+                assertEquals(
+                    insets.getInsets(WindowInsetsCompat.Type.statusBars()).top,
+                    activity.findViewById<View>(R.id.appBar).paddingTop,
+                )
+                val safeArea = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout(),
+                )
+                assertEquals(
+                    safeArea.left,
+                    activity.findViewById<View>(R.id.mainContent).paddingLeft,
+                )
+                assertEquals(
+                    safeArea.right,
+                    activity.findViewById<View>(R.id.mainContent).paddingRight,
+                )
+                assertEquals(
+                    safeArea.bottom,
+                    activity.findViewById<View>(R.id.mainContent).paddingBottom,
+                )
                 activity.findViewById<View>(R.id.navigationButton).performClick()
                 activity.findViewById<View>(R.id.navHome).performClick()
             }
@@ -54,6 +83,7 @@ class NavigationInstrumentedTest {
             scenario.onActivity { activity ->
                 assertTrue(activity.findViewById<View>(R.id.navAbout).isSelected)
                 assertEquals("Ucscode", activity.findViewById<TextView>(R.id.aboutCreatorValue).text.toString())
+                assertTrue(activity.findViewById<TextView>(R.id.aboutCreatorDescription).text.isNotBlank())
                 assertEquals("ucscode.com", activity.findViewById<TextView>(R.id.websiteText).text.toString())
             }
 
@@ -69,6 +99,15 @@ class NavigationInstrumentedTest {
             scenario.onActivity { activity ->
                 assertEquals("Jenesis", activity.findViewById<TextView>(R.id.screenTitle).text.toString())
                 assertEquals("Genesis", activity.findViewById<TextView>(R.id.chapterEnglishTitle).text.toString())
+                val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                assertTrue((list.layoutManager as GridLayoutManager).spanCount in 4..5)
+                val chapterSidePadding = (12 * activity.resources.displayMetrics.density).toInt()
+                assertEquals(chapterSidePadding, list.paddingLeft)
+                assertEquals(chapterSidePadding, list.paddingRight)
+                val tile = list.findViewHolderForAdapterPosition(0)!!.itemView
+                assertTrue(tile is ChapterTileView)
+                assertTrue(kotlin.math.abs(tile.width - tile.height) <= 1)
+                assertTrue(tile.isClickable && tile.isFocusable)
             }
             scenario.onActivity { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).getChildAt(0).performClick() }
             await(scenario) {
@@ -85,6 +124,15 @@ class NavigationInstrumentedTest {
                 activity.findViewById<View>(R.id.chapterNavigationLabel).performClick()
             }
             await(scenario) { it.chapterPickerDialog?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)?.adapter?.itemCount == 50 }
+            scenario.onActivity { activity ->
+                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                assertTrue((picker.layoutManager as GridLayoutManager).spanCount in 4..5)
+                val tile = picker.findViewHolderForAdapterPosition(0)!!.itemView
+                assertTrue(tile is ChapterTileView && tile.isSelected)
+                assertTrue(picker.isVerticalScrollBarEnabled)
+                assertTrue(!picker.isScrollbarFadingEnabled)
+                assertTrue(picker.height <= activity.resources.displayMetrics.heightPixels)
+            }
             scenario.onActivity { activity ->
                 val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
                 picker.scrollToPosition(9)
@@ -104,6 +152,15 @@ class NavigationInstrumentedTest {
             await(scenario) { it.chapterPickerDialog?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)?.adapter?.itemCount == 50 }
             scenario.onActivity { activity ->
                 val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                picker.scrollToPosition(9)
+            }
+            await(scenario) {
+                it.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                    .findViewHolderForAdapterPosition(9)?.itemView?.isSelected == true
+            }
+            scenario.onActivity { activity ->
+                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                picker.scrollToPosition(0)
                 picker.post { picker.findViewHolderForAdapterPosition(0)?.itemView?.performClick() }
             }
             await(scenario) {
@@ -114,13 +171,20 @@ class NavigationInstrumentedTest {
             scenario.onActivity { activity ->
                 val verse = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
                 assertTrue(verse.itemView.findViewById<TextView>(R.id.plainText).isTextSelectable)
-                val editionButton = activity.findViewById<TextView>(R.id.plainEditionButton)
-                val currentEdition = editionButton.text.toString()
-                assertTrue(currentEdition == "Modernized Igbo" || currentEdition == "KJV")
-                activity.findViewById<View>(R.id.plainEditionButton).performClick()
-                assertTrue(editionButton.text.toString() != currentEdition)
-                activity.findViewById<View>(R.id.plainEditionButton).performClick()
-                assertEquals(currentEdition, editionButton.text.toString())
+                activity.findViewById<View>(R.id.plainButton).performClick()
+                val igboEdition = activity.findViewById<TextView>(R.id.editionIgboButton)
+                val kjvEdition = activity.findViewById<TextView>(R.id.editionKjvButton)
+                assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.plainEditionSelector).visibility)
+                assertTrue(igboEdition.isClickable)
+                assertTrue(kjvEdition.isClickable)
+                val wasIgboSelected = igboEdition.isSelected
+                assertTrue(wasIgboSelected || kjvEdition.isSelected)
+                if (wasIgboSelected) kjvEdition.performClick() else igboEdition.performClick()
+                assertTrue(igboEdition.isSelected != wasIgboSelected)
+                assertEquals(igboEdition.isSelected, activity.getSharedPreferences("reader_preferences", 0)
+                    .getString("plain_edition", null) == "MODERN_IGBO")
+                if (wasIgboSelected) igboEdition.performClick() else kjvEdition.performClick()
+                assertEquals(wasIgboSelected, igboEdition.isSelected)
                 activity.findViewById<View>(R.id.sideButton).performClick()
                 assertEquals(View.VISIBLE, activity.findViewById<View>(R.id.sideIndicator).visibility)
                 assertEquals(View.GONE, activity.findViewById<View>(R.id.plainIndicator).visibility)
@@ -128,6 +192,10 @@ class NavigationInstrumentedTest {
             await(scenario) {
                 val verse = it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
                 verse.itemView.findViewById<View>(R.id.sideBySide).visibility == View.VISIBLE
+            }
+            scenario.onActivity { activity ->
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.bottomAdSlot).visibility)
+                assertEquals(0, activity.findViewById<View>(R.id.bottomAdSlot).height)
             }
             scenario.onActivity { activity ->
                 val verse = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
@@ -174,6 +242,12 @@ class NavigationInstrumentedTest {
             awaitReaderChapter(scenario, "Jenesis 2")
             scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
             await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 50 }
+            scenario.onActivity { activity ->
+                val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                val chapter = (list.adapter as ChapterAdapter)
+                assertEquals(50, chapter.itemCount)
+                assertTrue(list.findViewHolderForAdapterPosition(1)!!.itemView.isSelected)
+            }
             scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
             await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39 }
             scenario.onActivity { it.findViewById<View>(R.id.navigationButton).performClick() }
@@ -211,6 +285,61 @@ class NavigationInstrumentedTest {
             await(scenario) { it.findViewById<View>(R.id.booksControls).visibility == View.VISIBLE }
             scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
             await(scenario) { it.isFinishing }
+        } finally {
+            scenario.close()
+        }
+    }
+
+    @Test fun psalmsChapterPickerShowsScrollableSquareTilesAndCurrentSelection() {
+        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        try {
+            await(scenario) { it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39 }
+            scenario.onActivity { activity ->
+                val books = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                books.scrollToPosition(18)
+                books.post { books.findViewHolderForAdapterPosition(18)?.itemView?.performClick() }
+            }
+            await(scenario) {
+                val list = it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                list.layoutManager is GridLayoutManager && list.adapter?.itemCount == 150
+            }
+            scenario.onActivity { activity ->
+                val chapters = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+                assertTrue((chapters.layoutManager as GridLayoutManager).spanCount in 4..5)
+                val tile = chapters.findViewHolderForAdapterPosition(0)!!.itemView
+                assertTrue(tile is ChapterTileView)
+                assertTrue(kotlin.math.abs(tile.width - tile.height) <= 1)
+                tile.performClick()
+            }
+            await(scenario) {
+                it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Abù Ọma 1" &&
+                    it.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE
+            }
+            scenario.onActivity { it.findViewById<View>(R.id.chapterNavigationLabel).performClick() }
+            await(scenario) {
+                it.chapterPickerDialog?.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)?.adapter?.itemCount == 150
+            }
+            scenario.onActivity { activity ->
+                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                assertTrue((picker.layoutManager as GridLayoutManager).spanCount in 4..5)
+                assertTrue(picker.isVerticalScrollBarEnabled)
+                assertTrue(!picker.isScrollbarFadingEnabled)
+                assertTrue(picker.height < activity.resources.displayMetrics.heightPixels * 0.82f)
+                assertTrue(picker.findViewHolderForAdapterPosition(0)!!.itemView.isSelected)
+                picker.scrollToPosition(149)
+            }
+            await(scenario) {
+                it.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                    .findViewHolderForAdapterPosition(149) != null
+            }
+            scenario.onActivity { activity ->
+                val picker = activity.chapterPickerDialog!!.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.chapterPickerList)!!
+                picker.findViewHolderForAdapterPosition(149)!!.itemView.performClick()
+            }
+            await(scenario) {
+                it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Abù Ọma 150" &&
+                    it.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE
+            }
         } finally {
             scenario.close()
         }

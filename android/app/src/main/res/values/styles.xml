@@ -5,10 +5,16 @@
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
+    <style name="FutureAdSlotContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorAccent">#166534</item>
         <item name="android:fontFamily">sans</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
-        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 </resources>

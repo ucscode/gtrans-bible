@@ -18,6 +18,7 @@
     <string name="install_error">Could not open the local Bible databases.</string>
     <string name="empty_chapter">No verses were found for this chapter.</string>
     <string name="chapter_content_description">Chapter %1$d</string>
+    <string name="chapter_selected_content_description">Chapter %1$d, selected</string>
     <string name="reader_title">%1$s %2$d</string>
     <string name="install_error_detail">%1$s\n\n%2$s</string>
     <string name="open_navigation">Open navigation drawer</string>
@@ -33,6 +34,7 @@
     <string name="about_version_title">App version</string>
     <string name="about_creator_title">Created by</string>
     <string name="about_creator">Ucscode</string>
+    <string name="about_creator_description">Built by Ucscode, a software studio focused on practical digital products.</string>
     <string name="about_website">ucscode.com</string>
     <string name="version_format">Version %1$s (%2$d)</string>
     <string name="continue_reading_format">Continue Reading · %1$s %2$d</string>

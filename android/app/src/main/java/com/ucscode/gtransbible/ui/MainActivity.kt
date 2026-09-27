@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewConfiguration
+import android.content.res.Configuration
 import android.widget.ImageView
 import android.widget.Button
 import android.widget.ImageButton
@@ -19,6 +20,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,7 +64,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var plainButton: Button
     private lateinit var sideButton: Button
     private lateinit var followButton: Button
-    private lateinit var plainEditionButton: Button
+    private lateinit var plainEditionSelector: View
+    private lateinit var editionIgboButton: TextView
+    private lateinit var editionKjvButton: TextView
     private lateinit var chapterNavigationLabel: TextView
     private lateinit var indicators: Map<ReaderLayout, View>
     private lateinit var navDestinations: Map<Screen, View>
@@ -85,6 +91,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            val isLightTheme =
+                resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK != Configuration.UI_MODE_NIGHT_YES
+            isAppearanceLightStatusBars = isLightTheme
+            isAppearanceLightNavigationBars = isLightTheme
+        }
         splashScreen.setKeepOnScreenCondition { !startupComplete }
         val restoredScreen = savedInstanceState?.getString(STATE_SCREEN)
             ?.let { runCatching { Screen.valueOf(it) }.getOrNull() } ?: Screen.BOOKS
@@ -94,6 +109,7 @@ class MainActivity : AppCompatActivity() {
         val restoredChapterNumber = savedInstanceState?.getInt(STATE_CHAPTER_NUMBER)?.takeIf { it > 0 }
         setContentView(R.layout.activity_main)
         bindViews()
+        applySystemBarInsets()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (drawer.isDrawerOpen(GravityCompat.START)) drawer.closeDrawer(GravityCompat.START)
@@ -163,7 +179,9 @@ class MainActivity : AppCompatActivity() {
         plainButton = findViewById(R.id.plainButton)
         sideButton = findViewById(R.id.sideButton)
         followButton = findViewById(R.id.followButton)
-        plainEditionButton = findViewById(R.id.plainEditionButton)
+        plainEditionSelector = findViewById(R.id.plainEditionSelector)
+        editionIgboButton = findViewById(R.id.editionIgboButton)
+        editionKjvButton = findViewById(R.id.editionKjvButton)
         chapterNavigationLabel = findViewById(R.id.chapterNavigationLabel)
         indicators = mapOf(
             ReaderLayout.PLAIN to findViewById(R.id.plainIndicator),
@@ -199,18 +217,54 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(Intent.ACTION_VIEW, "https://ucscode.com".toUri()))
             }
         }
-        plainEditionButton.setOnClickListener {
-            plainEdition = if (plainEdition == PlainEdition.MODERN_IGBO) PlainEdition.KJV else PlainEdition.MODERN_IGBO
-            preferences.edit { putString("plain_edition", plainEdition.name) }
-            updateReaderControls()
-            readerAdapter.setPresentation(readerLayout, plainEdition)
-        }
+        editionIgboButton.setOnClickListener { setPlainEdition(PlainEdition.MODERN_IGBO) }
+        editionKjvButton.setOnClickListener { setPlainEdition(PlainEdition.KJV) }
         val packageInfo = packageManager.getPackageInfo(packageName, 0)
         @Suppress("DEPRECATION")
         val versionCode = packageInfo.versionCode
         findViewById<TextView>(R.id.versionText).text = getString(R.string.version_format, packageInfo.versionName ?: "0", versionCode)
         installChapterSwipeNavigation()
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START)
+    }
+
+    private fun applySystemBarInsets() {
+        val appBar = findViewById<View>(R.id.appBar)
+        val mainContent = findViewById<View>(R.id.mainContent)
+        val navigationDrawer = findViewById<View>(R.id.navigationDrawer)
+        val appBarTop = appBar.paddingTop
+        val contentLeft = mainContent.paddingLeft
+        val contentRight = mainContent.paddingRight
+        val contentBottom = mainContent.paddingBottom
+        val drawerTop = navigationDrawer.paddingTop
+        val drawerLeft = navigationDrawer.paddingLeft
+        val drawerRight = navigationDrawer.paddingRight
+        val drawerBottom = navigationDrawer.paddingBottom
+
+        ViewCompat.setOnApplyWindowInsetsListener(drawer) { _, insets ->
+            val safeArea = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout(),
+            )
+            appBar.setPadding(
+                appBar.paddingLeft,
+                appBarTop + safeArea.top,
+                appBar.paddingRight,
+                appBar.paddingBottom,
+            )
+            mainContent.setPadding(
+                contentLeft + safeArea.left,
+                mainContent.paddingTop,
+                contentRight + safeArea.right,
+                contentBottom + safeArea.bottom,
+            )
+            navigationDrawer.setPadding(
+                drawerLeft + safeArea.left,
+                drawerTop + safeArea.top,
+                drawerRight + safeArea.right,
+                drawerBottom + safeArea.bottom,
+            )
+            insets
+        }
+        ViewCompat.requestApplyInsets(drawer)
     }
 
     private fun configureAdapters() {
@@ -263,6 +317,7 @@ class MainActivity : AppCompatActivity() {
         navigationButton.contentDescription = getString(R.string.open_navigation)
         booksControls.visibility = View.VISIBLE
         list.visibility = View.VISIBLE
+        setChapterGridSidePadding(0)
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = bookAdapter
         updateTestamentButtons()
@@ -310,8 +365,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun selectBook(book: BibleBook) {
+        val retainedChapter = selectedBook?.takeIf { it.id == book.id }?.let { selectedChapter?.number }
         selectedBook = book
-        selectedChapter = null
+        selectedChapter = retainedChapter?.let { BibleChapter("${book.id}-$it", it) }
         screen = Screen.CHAPTERS
         navigationButton.setImageResource(R.drawable.ic_arrow_back)
         navigationButton.contentDescription = getString(R.string.go_back)
@@ -328,8 +384,12 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 if (request != navigationGeneration || screen != Screen.CHAPTERS) return@runOnUiThread
                 chapters.onSuccess {
-                    chapterAdapter.submit(it)
-                    list.layoutManager = GridLayoutManager(this, 4)
+                    chapterAdapter.submit(it, selectedChapter?.number)
+                    setChapterGridSidePadding(dp(CHAPTER_GRID_SIDE_PADDING_DP))
+                    val availableWidth = (list.width - list.paddingLeft - list.paddingRight)
+                        .takeIf { it > 0 }
+                        ?: (resources.displayMetrics.widthPixels - dp(CHAPTER_GRID_SIDE_PADDING_DP * 2))
+                    list.layoutManager = GridLayoutManager(this, chapterGridColumns(availableWidth))
                     list.adapter = chapterAdapter
                     list.visibility = View.VISIBLE
                     statusText.visibility = View.GONE
@@ -373,6 +433,7 @@ class MainActivity : AppCompatActivity() {
                     list.animate().cancel()
                     readerAdapter.submit(items)
                     readerAdapter.setPresentation(readerLayout, plainEdition)
+                    setChapterGridSidePadding(0)
                     list.layoutManager = LinearLayoutManager(this)
                     list.adapter = readerAdapter
                     list.visibility = View.VISIBLE
@@ -456,6 +517,14 @@ class MainActivity : AppCompatActivity() {
         readerAdapter.setPresentation(layout, plainEdition)
     }
 
+    private fun setPlainEdition(edition: PlainEdition) {
+        if (plainEdition == edition) return
+        plainEdition = edition
+        preferences.edit { putString("plain_edition", plainEdition.name) }
+        updateReaderControls()
+        readerAdapter.setPresentation(readerLayout, plainEdition)
+    }
+
     private fun updateReaderControls() {
         listOf(
             plainButton to (readerLayout == ReaderLayout.PLAIN),
@@ -467,8 +536,14 @@ class MainActivity : AppCompatActivity() {
             button.setTypeface(null, android.graphics.Typeface.NORMAL)
         }
         indicators.forEach { (layout, indicator) -> indicator.visibility = if (layout == readerLayout) View.VISIBLE else View.GONE }
-        plainEditionButton.visibility = if (readerLayout == ReaderLayout.PLAIN) View.VISIBLE else View.GONE
-        plainEditionButton.text = if (plainEdition == PlainEdition.MODERN_IGBO) getString(R.string.plain_igbo) else getString(R.string.plain_kjv)
+        plainEditionSelector.visibility = if (readerLayout == ReaderLayout.PLAIN) View.VISIBLE else View.GONE
+        listOf(
+            editionIgboButton to (plainEdition == PlainEdition.MODERN_IGBO),
+            editionKjvButton to (plainEdition == PlainEdition.KJV),
+        ).forEach { (button, selected) ->
+            button.isSelected = selected
+            button.setTextColor(getColor(if (selected) R.color.reader_control_selected else R.color.reader_control_unselected))
+        }
     }
 
     private fun navigateBack() {
@@ -488,16 +563,31 @@ class MainActivity : AppCompatActivity() {
                 if (screen != Screen.READER || selectedBook?.id != book.id) return@runOnUiThread
                 chapters.onSuccess { items ->
                     lateinit var dialog: AlertDialog
-                    val picker = RecyclerView(this).apply {
-                        id = R.id.chapterPickerList
-                        layoutManager = GridLayoutManager(this@MainActivity, 4)
-                        setPadding(dp(8), dp(12), dp(8), dp(8))
+                    val picker = layoutInflater.inflate(R.layout.dialog_chapter_picker, null) as RecyclerView
+                    val pickerPadding = resources.getDimensionPixelSize(R.dimen.chapter_picker_padding)
+                    val dialogContentWidth = (
+                        resources.displayMetrics.widthPixels -
+                            dp(DIALOG_CONTENT_INSET_DP) -
+                            pickerPadding * 2
+                    ).coerceAtLeast(dp(CHAPTER_GRID_MIN_COLUMNS * CHAPTER_GRID_TARGET_CELL_DP))
+                    val columns = chapterGridColumns(dialogContentWidth)
+                    picker.apply {
+                        layoutManager = GridLayoutManager(this@MainActivity, columns)
+                        setPadding(pickerPadding, pickerPadding, pickerPadding, pickerPadding)
                         clipToPadding = false
                         adapter = ChapterAdapter { chapter ->
                             dialog.dismiss()
                             loadChapter(book, chapter.number)
-                        }.also { it.submit(items) }
+                        }.also { it.submit(items, selectedChapter?.number) }
                     }
+                    val rows = (items.size + columns - 1) / columns
+                    val rowHeightPx = dialogContentWidth / columns
+                    val maxDialogHeight = minOf(dp(640), (resources.displayMetrics.heightPixels * 0.82f).toInt())
+                    val maxListHeight = (maxDialogHeight - dp(DIALOG_CHROME_HEIGHT_DP)).coerceAtLeast(dp(64))
+                    val contentHeight = rows * rowHeightPx + pickerPadding * 2
+                    val pickerHeight = minOf(maxListHeight, contentHeight)
+                    picker.isVerticalScrollBarEnabled = contentHeight > maxListHeight
+                    picker.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pickerHeight)
                     dialog = AlertDialog.Builder(this)
                         .setTitle(getString(R.string.choose_chapter, displayIgboBookName(book.name)))
                         .setView(picker)
@@ -506,7 +596,7 @@ class MainActivity : AppCompatActivity() {
                     chapterPickerDialog = dialog
                     dialog.setOnDismissListener { chapterPickerDialog = null }
                     dialog.setOnShowListener {
-                        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, minOf(dp(480), (resources.displayMetrics.heightPixels * 0.62f).toInt()))
+                        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, pickerHeight + dp(DIALOG_CHROME_HEIGHT_DP))
                     }
                     dialog.show()
                 }.onFailure { showError(it.message ?: getString(R.string.install_error)) }
@@ -515,6 +605,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
+
+    private fun setChapterGridSidePadding(padding: Int) {
+        list.setPadding(padding, list.paddingTop, padding, list.paddingBottom)
+        list.clipToPadding = false
+    }
+
+    private fun chapterGridColumns(availableWidthPx: Int): Int =
+        (availableWidthPx / dp(CHAPTER_GRID_TARGET_CELL_DP))
+            .coerceIn(CHAPTER_GRID_MIN_COLUMNS, CHAPTER_GRID_MAX_COLUMNS)
 
     private fun showError(message: String) {
         hideScreens()
@@ -606,6 +705,12 @@ class MainActivity : AppCompatActivity() {
         const val STATE_CHAPTER_NUMBER = "chapter_number"
         const val PREF_LAST_BOOK = "last_book"
         const val PREF_LAST_CHAPTER = "last_chapter"
+        const val CHAPTER_GRID_MIN_COLUMNS = 4
+        const val CHAPTER_GRID_MAX_COLUMNS = 12
+        const val CHAPTER_GRID_TARGET_CELL_DP = 80
+        const val CHAPTER_GRID_SIDE_PADDING_DP = 12
+        const val DIALOG_CONTENT_INSET_DP = 32
+        const val DIALOG_CHROME_HEIGHT_DP = 132
         const val CHAPTER_TRANSITION_MS = 180L
     }
 }

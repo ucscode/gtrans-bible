@@ -72,8 +72,9 @@ class ChapterAdapter(
     private val onChapterSelected: (BibleChapter) -> Unit,
 ) : RecyclerView.Adapter<ChapterAdapter.Holder>() {
     private var chapters: List<BibleChapter> = emptyList()
+    private var selectedChapterNumber: Int? = null
 
-    fun submit(items: List<BibleChapter>) {
+    fun submit(items: List<BibleChapter>, selectedNumber: Int? = selectedChapterNumber) {
         val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
             override fun getOldListSize() = chapters.size
             override fun getNewListSize() = items.size
@@ -82,25 +83,36 @@ class ChapterAdapter(
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
                 chapters[oldItemPosition] == items[newItemPosition]
         })
+        val oldSelectedNumber = selectedChapterNumber
         chapters = items
+        selectedChapterNumber = selectedNumber
         diff.dispatchUpdatesTo(this)
+        if (oldSelectedNumber != selectedNumber) {
+            chapters.indexOfFirst { it.number == oldSelectedNumber }.takeIf { it >= 0 }?.let(::notifyItemChanged)
+            chapters.indexOfFirst { it.number == selectedNumber }.takeIf { it >= 0 }?.let(::notifyItemChanged)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder = Holder(
         LayoutInflater.from(parent.context).inflate(R.layout.row_chapter, parent, false), onChapterSelected,
     )
 
-    override fun onBindViewHolder(holder: Holder, position: Int) = holder.bind(chapters[position])
-    override fun getItemCount() = chapters.size
-
     class Holder(itemView: View, private val onSelected: (BibleChapter) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val number = itemView.findViewById<TextView>(R.id.chapterNumber)
-        fun bind(chapter: BibleChapter) {
+        fun bind(chapter: BibleChapter, selectedNumber: Int?) {
             number.text = NumberFormat.getIntegerInstance().format(chapter.number)
-            number.contentDescription = itemView.context.getString(R.string.chapter_content_description, chapter.number)
+            val selected = chapter.number == selectedNumber
+            number.contentDescription = itemView.context.getString(
+                if (selected) R.string.chapter_selected_content_description else R.string.chapter_content_description,
+                chapter.number,
+            )
+            itemView.isSelected = selected
             itemView.setOnClickListener { onSelected(chapter) }
         }
     }
+
+    override fun onBindViewHolder(holder: Holder, position: Int) = holder.bind(chapters[position], selectedChapterNumber)
+    override fun getItemCount() = chapters.size
 }
 
 class ReaderAdapter : RecyclerView.Adapter<ReaderAdapter.Holder>() {

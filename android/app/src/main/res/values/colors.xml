@@ -10,4 +10,10 @@
     <color name="website_link">#FF1F3A5F</color>
     <color name="chapter_indicator">#FF166534</color>
     <color name="splash_background">#FFFFFFFF</color>
+    <color name="chapter_tile_surface">#FFFFFFFF</color>
+    <color name="chapter_tile_border">#FFDADCE0</color>
+    <color name="chapter_tile_selected_surface">#FFE8F5E9</color>
+    <color name="chapter_tile_selected_border">#FF166534</color>
+    <color name="edition_selector_border">#FF9AA0A6</color>
+    <color name="edition_segment_selected_surface">#FFC8E6C9</color>
 </resources>
