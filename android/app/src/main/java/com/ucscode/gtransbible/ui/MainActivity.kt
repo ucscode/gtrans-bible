@@ -28,6 +28,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ucscode.gtransbible.R
+import com.ucscode.gtransbible.ads.AdPlacement
+import com.ucscode.gtransbible.ads.BibleApplication
 import com.ucscode.gtransbible.data.BibleBook
 import com.ucscode.gtransbible.data.BibleChapter
 import com.ucscode.gtransbible.data.BibleRepository
@@ -56,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var homeScreen: View
     private lateinit var booksControls: View
     private lateinit var aboutScreen: View
+    private lateinit var privacyOptionsButton: TextView
     private lateinit var readerControls: View
     private lateinit var backButton: View
     private lateinit var homeContinueButton: Button
@@ -175,6 +178,7 @@ class MainActivity : AppCompatActivity() {
         homeScreen = findViewById(R.id.homeScreen)
         booksControls = findViewById(R.id.booksControls)
         aboutScreen = findViewById(R.id.aboutScreen)
+        privacyOptionsButton = findViewById(R.id.privacyOptionsButton)
         readerControls = findViewById(R.id.readerControls)
         backButton = navigationButton
         homeContinueButton = findViewById(R.id.continueButton)
@@ -210,6 +214,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.navHome).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showHome() }
         findViewById<View>(R.id.navBooks).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showBooks() }
         findViewById<View>(R.id.navAbout).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showAbout() }
+        privacyOptionsButton.apply {
+            paintFlags = paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+            setOnClickListener { (application as BibleApplication).adsController.showPrivacyOptions(this@MainActivity) }
+        }
         findViewById<View>(R.id.browseButton).setOnClickListener { showBooks() }
         homeContinueButton.setOnClickListener { continueReading() }
         oldTestamentButton.setOnClickListener { setTestament(Testament.OLD) }
@@ -286,6 +294,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading() {
         hideScreens()
+        currentAdsController()?.setBannerPlacement(this, AdPlacement.NONE)
         screenTitle.text = getString(R.string.app_name)
         statusText.visibility = View.VISIBLE
         statusText.text = getString(R.string.loading)
@@ -302,6 +311,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showHome() {
         screen = Screen.HOME
+        updateAdPlacement()
         selectedBook = null
         selectedChapter = null
         hideScreens()
@@ -317,6 +327,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showBooks() {
         screen = Screen.BOOKS
+        updateAdPlacement()
         selectedBook = null
         selectedChapter = null
         hideScreens()
@@ -336,6 +347,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAbout() {
         screen = Screen.ABOUT
+        updateAdPlacement()
         hideScreens()
         screenTitle.text = getString(R.string.about)
         setScreenTitleBookPicker(false)
@@ -381,6 +393,7 @@ class MainActivity : AppCompatActivity() {
         selectedBook = book
         selectedChapter = retainedChapter?.let { BibleChapter("${book.id}-$it", it) }
         screen = Screen.CHAPTERS
+        updateAdPlacement()
         navigationButton.setImageResource(R.drawable.ic_arrow_back)
         navigationButton.contentDescription = getString(R.string.go_back)
         hideScreens()
@@ -421,6 +434,7 @@ class MainActivity : AppCompatActivity() {
         selectedBook = book
         selectedChapter = BibleChapter("${book.id}-$chapterNumber", chapterNumber)
         screen = Screen.READER
+        updateAdPlacement()
         if (transition == null) hideScreens()
         navigationButton.setImageResource(R.drawable.ic_arrow_back)
         navigationButton.contentDescription = getString(R.string.go_back)
@@ -667,8 +681,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun showError(message: String) {
         hideScreens()
+        currentAdsController()?.setBannerPlacement(this, AdPlacement.NONE)
         statusText.visibility = View.VISIBLE
         statusText.text = message
+    }
+
+    private fun updateAdPlacement() {
+        val placement = when (screen) {
+            Screen.HOME -> AdPlacement.HOME
+            Screen.BOOKS -> AdPlacement.BOOKS
+            Screen.CHAPTERS -> AdPlacement.CHAPTERS
+            Screen.READER -> AdPlacement.READER
+            Screen.ABOUT -> AdPlacement.ABOUT
+        }
+        currentAdsController()?.setBannerPlacement(this, placement)
+    }
+
+    private fun currentAdsController() = (application as? BibleApplication)?.adsController
+
+    internal fun setPrivacyOptionsRequired(required: Boolean) {
+        runOnUiThread {
+            if (!isFinishing && ::privacyOptionsButton.isInitialized) {
+                privacyOptionsButton.visibility = if (required) View.VISIBLE else View.GONE
+            }
+        }
     }
 
     private fun installChapterSwipeNavigation() {

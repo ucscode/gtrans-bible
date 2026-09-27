@@ -6,6 +6,55 @@ plugins {
     id 'com.android.application'
 }
 
+def admobIniFile = rootProject.file('../local.admob.ini')
+def readAdmobIni = { File file ->
+    def values = [appId: null, appOpenUnitId: null, bannerUnitId: null]
+    if (!file.isFile()) return values
+
+    String section = ''
+    file.eachLine('UTF-8') { rawLine ->
+        String line = rawLine.trim()
+        if (line.isEmpty() || line.startsWith('#') || line.startsWith(';')) return
+        if (line.startsWith('[') && line.endsWith(']')) {
+            section = line.substring(1, line.length() - 1).trim().toLowerCase(Locale.ROOT)
+            return
+        }
+        int separator = line.indexOf('=')
+        if (separator < 1) return
+        String key = line.substring(0, separator).trim().toLowerCase(Locale.ROOT)
+        String value = line.substring(separator + 1).trim()
+        if (section.isEmpty() && key == 'app_id') values.appId = value
+        if (section == 'app open' && key == 'unit_id') values.appOpenUnitId = value
+        if (section == 'banner bottom' && key == 'unit_id') values.bannerUnitId = value
+    }
+    values
+}
+
+def localAdmob = readAdmobIni(admobIniFile)
+def appIdPattern = ~/^ca-app-pub-\d{16}~\d{10}$/
+def unitIdPattern = ~/^ca-app-pub-\d{16}\/\d{10}$/
+def localAdmobProblems = []
+if (!(localAdmob.appId ==~ appIdPattern)) localAdmobProblems << 'app_id'
+if (!(localAdmob.appOpenUnitId ==~ unitIdPattern)) localAdmobProblems << '[app open] unit_id'
+if (!(localAdmob.bannerUnitId ==~ unitIdPattern)) localAdmobProblems << '[banner bottom] unit_id'
+
+def quoteBuildConfig = { String value -> JsonOutput.toJson(value ?: '') }
+def testAppId = 'ca-app-pub-3940256099942544~3347511713'
+def testAppOpenId = 'ca-app-pub-3940256099942544/9257395921'
+def testBannerId = 'ca-app-pub-3940256099942544/9214589741'
+def validateReleaseAdmob = tasks.register('validateReleaseAdMobConfiguration') {
+    group = 'verification'
+    description = 'Validates production AdMob identifiers from the ignored local.admob.ini file.'
+    doLast {
+        if (!localAdmobProblems.isEmpty()) {
+            throw new GradleException(
+                "Release builds require valid AdMob values in ${admobIniFile}: ${localAdmobProblems.join(', ')}. " +
+                    'Debug builds use Google test identifiers.'
+            )
+        }
+    }
+}
+
 android {
     namespace 'com.ucscode.gtransbible'
     compileSdk 36
@@ -13,11 +62,33 @@ android {
 
     defaultConfig {
         applicationId 'com.ucscode.gtransbible.dev'
-        minSdk 23
+        minSdk 24
         targetSdk 36
         versionCode 1
         versionName '0.1.0'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        manifestPlaceholders = [ADMOB_APP_ID: testAppId]
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'ADMOB_MODE', quoteBuildConfig('TEST')
+            buildConfigField 'String', 'ADMOB_APP_ID', quoteBuildConfig(testAppId)
+            buildConfigField 'String', 'ADMOB_APP_OPEN_UNIT_ID', quoteBuildConfig(testAppOpenId)
+            buildConfigField 'String', 'ADMOB_BANNER_UNIT_ID', quoteBuildConfig(testBannerId)
+            manifestPlaceholders = [ADMOB_APP_ID: testAppId]
+        }
+        release {
+            buildConfigField 'String', 'ADMOB_MODE', quoteBuildConfig('PRODUCTION')
+            buildConfigField 'String', 'ADMOB_APP_ID', quoteBuildConfig(localAdmob.appId as String)
+            buildConfigField 'String', 'ADMOB_APP_OPEN_UNIT_ID', quoteBuildConfig(localAdmob.appOpenUnitId as String)
+            buildConfigField 'String', 'ADMOB_BANNER_UNIT_ID', quoteBuildConfig(localAdmob.bannerUnitId as String)
+            manifestPlaceholders = [ADMOB_APP_ID: localAdmob.appId ?: testAppId]
+        }
     }
 
     sourceSets {
@@ -35,10 +106,16 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
+    implementation 'com.google.android.gms:play-services-ads:25.5.0'
+    implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.7.0'
     androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+}
+
+tasks.matching { it.name == 'preReleaseBuild' }.configureEach {
+    dependsOn validateReleaseAdmob
 }
 
 def requiredLocalDatabases = ['bible.sqlite', 'igbob-modern.sqlite', 'kjv.sqlite']

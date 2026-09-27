@@ -1,4 +1,5 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
@@ -43,6 +44,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingStart="0dp"
                     android:paddingEnd="8dp">
                     <TextView
                         android:id="@+id/screenTitle"
@@ -64,7 +66,7 @@
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_expand_more"
                         android:visibility="gone"
-                        android:tint="@color/reader_secondary_text" />
+                        app:tint="@color/reader_secondary_text" />
                 </LinearLayout>
                 <TextView
                     android:id="@+id/chapterEnglishTitle"
@@ -241,6 +243,7 @@
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/about_purpose_title" android:textSize="18sp" android:textStyle="bold" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/about_purpose" android:textSize="16sp" />
             <TextView android:id="@+id/aboutTranslationNote" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/about_translation_note" android:textSize="16sp" />
+            <TextView android:id="@+id/privacyOptionsButton" android:layout_width="wrap_content" android:layout_height="48dp" android:clickable="true" android:focusable="true" android:gravity="center_vertical" android:text="@string/privacy_options" android:textColor="@color/website_link" android:textSize="16sp" android:visibility="gone" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="@string/about_version_title" android:textSize="18sp" android:textStyle="bold" />
             <TextView android:id="@+id/versionText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="16sp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="@string/about_creator_title" android:textSize="18sp" android:textStyle="bold" />

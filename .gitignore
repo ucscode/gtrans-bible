@@ -35,3 +35,5 @@ credentials/
 # These files are intentionally not ignored:
 # /data/sources/source-lock.json
 # /data/releases/igbob-modern-v0.5.0.json
+
+local*

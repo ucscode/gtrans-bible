@@ -3,6 +3,7 @@ package com.ucscode.gtransbible.ui
 import android.view.View
 import android.view.MotionEvent
 import android.os.SystemClock
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.test.core.app.ActivityScenario
@@ -11,7 +12,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ucscode.gtransbible.R
+import com.ucscode.gtransbible.ads.BibleApplication
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,6 +25,7 @@ class NavigationInstrumentedTest {
     @Test fun booksStartupHomeDrawerTestamentNamesReaderLayoutAndContinueReading() {
         val scenario = ActivityScenario.launch(MainActivity::class.java)
         try {
+            scenario.onActivity { (it.application as BibleApplication).adsController.adsEnabled = false }
             await(scenario) {
                 it.findViewById<View>(R.id.booksControls).visibility == View.VISIBLE &&
                     it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount == 39
@@ -82,6 +86,7 @@ class NavigationInstrumentedTest {
             await(scenario) { it.findViewById<View>(R.id.aboutScreen).visibility == View.VISIBLE }
             scenario.onActivity { activity ->
                 assertTrue(activity.findViewById<View>(R.id.navAbout).isSelected)
+                assertEquals(View.GONE, activity.findViewById<View>(R.id.bottomAdSlot).visibility)
                 assertEquals(
                     "Built by Ucscode, a software studio focused on practical digital products.",
                     activity.findViewById<TextView>(R.id.aboutCreatorDescription).text.toString(),
@@ -119,8 +124,13 @@ class NavigationInstrumentedTest {
             await(scenario) {
                 it.findViewById<TextView>(R.id.screenTitle).text.toString() == "Jenesis 1" &&
                     it.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE &&
+                    it.findViewById<View>(R.id.bottomAdSlot).visibility == View.GONE &&
                     it.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).adapter?.itemCount?.let { count -> count > 0 } == true
             }
+
+            assertReaderFooterResizesContent(scenario, R.id.plainButton, R.id.plainText)
+            assertReaderFooterResizesContent(scenario, R.id.sideButton, R.id.sideIgbo)
+            assertReaderFooterResizesContent(scenario, R.id.followButton, R.id.followIgbo)
 
             val retainedLayout = BooleanArray(3)
             scenario.onActivity { activity ->
@@ -208,7 +218,6 @@ class NavigationInstrumentedTest {
             }
             scenario.onActivity { activity ->
                 assertEquals(View.GONE, activity.findViewById<View>(R.id.bottomAdSlot).visibility)
-                assertEquals(0, activity.findViewById<View>(R.id.bottomAdSlot).height)
             }
             scenario.onActivity { activity ->
                 val verse = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).findViewHolderForAdapterPosition(0)!!
@@ -374,6 +383,60 @@ class NavigationInstrumentedTest {
         activity.findViewById<TextView>(R.id.screenTitle).text.toString() == title &&
             activity.findViewById<View>(R.id.readerControls).visibility == View.VISIBLE &&
             kotlin.math.abs(activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list).translationX) < 1f
+    }
+
+    private fun assertReaderFooterResizesContent(
+        scenario: ActivityScenario<MainActivity>,
+        modeButtonId: Int,
+        verseTextId: Int,
+    ) {
+        scenario.onActivity { activity ->
+            activity.findViewById<View>(modeButtonId).performClick()
+            val slot = activity.findViewById<FrameLayout>(R.id.bottomAdSlot)
+            slot.removeAllViews()
+            slot.addView(
+                View(activity),
+                FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    (56 * activity.resources.displayMetrics.density).toInt(),
+                ),
+            )
+            slot.visibility = View.VISIBLE
+            val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+            list.scrollToPosition(list.adapter!!.itemCount - 1)
+            list.post { list.scrollBy(0, Int.MAX_VALUE) }
+        }
+
+        await(scenario) { activity ->
+            val slot = activity.findViewById<FrameLayout>(R.id.bottomAdSlot)
+            val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+            slot.visibility == View.VISIBLE &&
+                !list.canScrollVertically(1) &&
+                list.findViewHolderForAdapterPosition(list.adapter!!.itemCount - 1) != null
+        }
+        scenario.onActivity { activity ->
+            val slot = activity.findViewById<FrameLayout>(R.id.bottomAdSlot)
+            val list = activity.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.list)
+            val lastVerse = list.findViewHolderForAdapterPosition(list.adapter!!.itemCount - 1)!!.itemView
+            val modeText = lastVerse.findViewById<View>(verseTextId)
+            val listPosition = IntArray(2)
+            val slotPosition = IntArray(2)
+            list.getLocationOnScreen(listPosition)
+            slot.getLocationOnScreen(slotPosition)
+
+            assertEquals(View.VISIBLE, modeText.visibility)
+            assertTrue("Reader list must resize above its footer", listPosition[1] + list.height <= slotPosition[1])
+            assertTrue("Last verse must remain inside the scrolling content", lastVerse.bottom <= list.height)
+            assertFalse("The last verse must be reachable above the footer", list.canScrollVertically(1))
+
+            slot.removeAllViews()
+            slot.visibility = View.GONE
+            list.scrollToPosition(0)
+            assertEquals(View.GONE, slot.visibility)
+        }
+        await(scenario) {
+            it.findViewById<View>(R.id.bottomAdSlot).visibility == View.GONE
+        }
     }
 
     private fun swipeReader(scenario: ActivityScenario<MainActivity>, left: Boolean, horizontal: Boolean) {
