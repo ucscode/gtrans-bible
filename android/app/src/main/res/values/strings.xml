@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Igbo Bible</string>
+    <string name="app_name">Igbo Bible &amp; English KJV</string>
     <string name="books_title">Books</string>
     <string name="home">Home</string>
     <string name="about">About</string>
-    <string name="home_title">Akwụkwọ Nsọ Igbo</string>
-    <string name="home_description">Modernized Igbo Bible with the King James Version. Read offline.</string>
+    <string name="home_title">Igbo Bible &amp; English KJV</string>
+    <string name="home_description">Read IGBOB (mod) and the English King James Version (KJV) offline.</string>
     <string name="continue_reading">Continue Reading</string>
     <string name="browse_books">Browse Books</string>
     <string name="old_testament">Old Testament</string>
@@ -31,9 +31,9 @@
     <string name="chapter_navigation">Chapter navigation</string>
     <string name="choose_chapter">Choose chapter · %1$s</string>
     <string name="cancel">Cancel</string>
-    <string name="app_icon_description">Igbo Bible</string>
-    <string name="about_purpose_title">About this app</string>
-    <string name="about_purpose">An offline reading companion with a modernized Igbo Bible and the King James Version.</string>
+    <string name="app_icon_description">Igbo Bible &amp; English KJV</string>
+    <string name="about_purpose_title">About Igbo Bible &amp; English KJV</string>
+    <string name="about_purpose">An offline reading companion with IGBOB (mod) and the English King James Version (KJV).</string>
     <string name="about_translation_note">The Igbo text preserves the historic IGBOB translation while updating historical orthography for readability.</string>
     <string name="about_version_title">App version</string>
     <string name="about_creator_title">Created by</string>
