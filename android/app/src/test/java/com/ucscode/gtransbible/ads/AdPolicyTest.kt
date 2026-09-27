@@ -44,11 +44,12 @@ class AdPolicyTest {
     }
 
     @Test
-    fun homeBooksChaptersAndReaderAllowBannersButAboutDoesNot() {
+    fun homeBooksChaptersReaderAndDailyVerseAllowBannersButAboutDoesNot() {
         assertTrue(AdPolicy.allowsBanner(true, AdPlacement.HOME))
         assertTrue(AdPolicy.allowsBanner(true, AdPlacement.BOOKS))
         assertTrue(AdPolicy.allowsBanner(true, AdPlacement.CHAPTERS))
         assertTrue(AdPolicy.allowsBanner(true, AdPlacement.READER))
+        assertTrue(AdPolicy.allowsBanner(true, AdPlacement.DAILY_VERSE))
         assertFalse(AdPolicy.allowsBanner(true, AdPlacement.ABOUT))
         assertFalse(AdPolicy.allowsBanner(false, AdPlacement.HOME))
         assertFalse(AdPolicy.allowsBanner(false, AdPlacement.READER))

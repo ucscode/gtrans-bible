@@ -73,6 +73,17 @@ class BibleRepository(private val directory: File) : AutoCloseable {
         cursor.map { ChapterVerse(it.getString(0), it.getInt(1), it.getString(2), it.getString(3)) }
     }
 
+    fun getParallelVerse(verseId: String): ChapterVerse? = database.rawQuery(
+        """SELECT v.id, v.number, m.content, k.content
+           FROM main.verses v
+           JOIN igbob_modern.verses m ON m.verse_id = v.id
+           JOIN kjv.verses k ON k.verse_id = v.id
+           WHERE v.id = ? LIMIT 1""".trimIndent(),
+        arrayOf(verseId),
+    ).use { cursor ->
+        if (cursor.moveToFirst()) ChapterVerse(cursor.getString(0), cursor.getInt(1), cursor.getString(2), cursor.getString(3)) else null
+    }
+
     override fun close() = database.close()
 
     private inline fun <T> Cursor.map(transform: (Cursor) -> T): List<T> = buildList {

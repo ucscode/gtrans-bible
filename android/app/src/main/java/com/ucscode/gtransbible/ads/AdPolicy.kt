@@ -5,6 +5,7 @@ enum class AdPlacement {
     BOOKS,
     CHAPTERS,
     READER,
+    DAILY_VERSE,
     ABOUT,
     NONE,
 }
@@ -19,6 +20,7 @@ object AdPolicy {
             AdPlacement.BOOKS,
             AdPlacement.CHAPTERS,
             AdPlacement.READER,
+            AdPlacement.DAILY_VERSE,
         )
 
     fun shouldShowBannerSlot(placementAllowsBanner: Boolean, adLoaded: Boolean): Boolean =

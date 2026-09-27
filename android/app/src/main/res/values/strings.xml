@@ -42,4 +42,14 @@
     <string name="about_website">ucscode.com</string>
     <string name="version_format">Version %1$s (%2$d)</string>
     <string name="continue_reading_format">Continue Reading · %1$s %2$d</string>
+    <string name="daily_verse_title">Verse of the Day</string>
+    <string name="daily_verse_navigation">Daily Verse</string>
+    <string name="daily_verse_loading">Loading today’s verse…</string>
+    <string name="daily_verse_unavailable">Today’s verse is unavailable. Check your connection and try again later.</string>
+    <string name="daily_verse_recent">Saved verse · %1$s</string>
+    <string name="daily_verse_card_accessibility">Verse of the Day, %1$s</string>
+    <string name="daily_verse_notifications">Daily Verse Notifications</string>
+    <string name="daily_verse_notifications_permission_help">Allow notifications in Android settings to receive the daily verse.</string>
+    <string name="daily_verse_channel">Daily Verse</string>
+    <string name="daily_verse_notification_title">Verse of the Day</string>
 </resources>

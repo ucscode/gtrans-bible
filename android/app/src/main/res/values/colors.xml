@@ -16,4 +16,6 @@
     <color name="chapter_tile_selected_border">#FF166534</color>
     <color name="edition_selector_border">#FF9AA0A6</color>
     <color name="edition_segment_selected_surface">#FFC8E6C9</color>
+    <color name="daily_verse_card_surface">#FFF1F7F1</color>
+    <color name="daily_verse_card_border">#FFD7E5D8</color>
 </resources>

@@ -78,50 +78,147 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/homeScreen"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/homeScroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="28dp"
+            android:fillViewport="true"
+            android:clipToPadding="false"
             android:visibility="gone">
-            <ImageView
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_marginTop="54dp"
-                android:contentDescription="@string/app_icon_description"
-                android:src="@drawable/ic_bible" />
-            <TextView
-                android:id="@+id/homeTitle"
+            <LinearLayout
+                android:id="@+id/homeScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:gravity="center"
-                android:text="@string/home_title"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-            <TextView
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="28dp">
+                <ImageView
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="54dp"
+                    android:contentDescription="@string/app_icon_description"
+                    android:src="@drawable/ic_bible" />
+                <TextView
+                    android:id="@+id/homeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:gravity="center"
+                    android:text="@string/home_title"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/home_description"
+                    android:textSize="16sp" />
+                <Button
+                    android:id="@+id/continueButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:text="@string/continue_reading" />
+                <Button
+                    android:id="@+id/browseButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/browse_books" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/dailyVerseScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:clipToPadding="false"
+            android:visibility="gone">
+            <LinearLayout
+                android:id="@+id/dailyVerseScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="@string/home_description"
-                android:textSize="16sp" />
-            <Button
-                android:id="@+id/continueButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="34dp"
-                android:text="@string/continue_reading" />
-            <Button
-                android:id="@+id/browseButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/browse_books" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:padding="24dp">
+                <TextView
+                    android:id="@+id/dailyVerseStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="24dp"
+                    android:text="@string/daily_verse_loading"
+                    android:textColor="@color/reader_secondary_text"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:id="@+id/dailyVerseCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/daily_verse_card_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/dailyVerseTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_verse_title"
+                        android:textColor="@color/reader_control_selected"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/dailyVerseIgbo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/reader_primary_text"
+                        android:textSize="22sp" />
+                    <TextView
+                        android:id="@+id/dailyVerseEnglish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/reader_english_secondary"
+                        android:textSize="17sp" />
+                    <TextView
+                        android:id="@+id/dailyVerseReference"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textColor="@color/reader_secondary_text"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/dailyVerseCachedState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/reader_secondary_text"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/dailyVerseNotificationsSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/daily_verse_notifications"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/dailyVerseNotificationHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/daily_verse_notifications_permission_help"
+                    android:textColor="@color/reader_secondary_text"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/booksControls"
@@ -269,6 +366,7 @@
         <TextView android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingHorizontal="24dp" android:text="@string/app_name" android:textSize="20sp" android:textStyle="bold" />
         <include layout="@layout/row_navigation_home" />
         <include layout="@layout/row_navigation_books" />
+        <include layout="@layout/row_navigation_daily_verse" />
         <include layout="@layout/row_navigation_about" />
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

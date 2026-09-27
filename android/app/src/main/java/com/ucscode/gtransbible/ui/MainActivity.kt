@@ -1,7 +1,10 @@
 package com.ucscode.gtransbible.ui
 
+import android.Manifest
 import android.os.Bundle
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.text.Selection
 import android.view.MotionEvent
 import android.view.View
@@ -14,6 +17,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -27,6 +31,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.SwitchCompat
 import com.ucscode.gtransbible.R
 import com.ucscode.gtransbible.ads.AdPlacement
 import com.ucscode.gtransbible.ads.BibleApplication
@@ -39,12 +44,17 @@ import com.ucscode.gtransbible.data.PlainEdition
 import com.ucscode.gtransbible.data.ReaderLayout
 import com.ucscode.gtransbible.data.Testament
 import com.ucscode.gtransbible.data.displayIgboBookName
+import com.ucscode.gtransbible.daily.DailyVerseDisplay
+import com.ucscode.gtransbible.daily.DailyVerseNotificationScheduler
+import com.ucscode.gtransbible.daily.DailyVerseRepository
+import com.ucscode.gtransbible.daily.OurMannaDailyVerseApi
+import com.ucscode.gtransbible.daily.SharedPreferencesDailyVerseStore
 import java.io.File
 import java.util.concurrent.Executors
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
-    private enum class Screen { HOME, BOOKS, CHAPTERS, READER, ABOUT }
+    private enum class Screen { HOME, BOOKS, DAILY_VERSE, CHAPTERS, READER, ABOUT }
 
     private val worker = Executors.newSingleThreadExecutor()
     private lateinit var drawer: DrawerLayout
@@ -56,12 +66,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var chapterEnglishTitle: TextView
     private lateinit var statusText: TextView
     private lateinit var homeScreen: View
+    private lateinit var homeScroll: View
+    private lateinit var dailyVerseScroll: View
+    private lateinit var dailyVerseScreen: View
+    private lateinit var dailyVerseStatus: TextView
     private lateinit var booksControls: View
     private lateinit var aboutScreen: View
     private lateinit var privacyOptionsButton: TextView
     private lateinit var readerControls: View
     private lateinit var backButton: View
     private lateinit var homeContinueButton: Button
+    private lateinit var dailyVerseCard: View
+    private lateinit var dailyVerseTitle: TextView
+    private lateinit var dailyVerseIgbo: TextView
+    private lateinit var dailyVerseEnglish: TextView
+    private lateinit var dailyVerseReference: TextView
+    private lateinit var dailyVerseCachedState: TextView
+    private lateinit var dailyVerseNotificationsSwitch: SwitchCompat
+    private lateinit var dailyVerseNotificationHelp: TextView
     private lateinit var oldTestamentButton: Button
     private lateinit var newTestamentButton: Button
     private lateinit var previousChapterButton: ImageButton
@@ -88,12 +110,19 @@ class MainActivity : AppCompatActivity() {
     private var plainEdition = PlainEdition.MODERN_IGBO
     private var navigationGeneration = 0
     private var startupComplete = false
+    private var dailyVerseDisplay: DailyVerseDisplay? = null
+    private var dailyVerseLoadGeneration = 0
+    private var settingNotificationSwitch = false
     internal var chapterPickerDialog: AlertDialog? = null
         private set
     internal var bookPickerDialog: AlertDialog? = null
         private set
 
     private val preferences by lazy { getSharedPreferences("reader_preferences", MODE_PRIVATE) }
+    private val notificationPreferences by lazy { SharedPreferencesDailyVerseStore(this) }
+    private val notificationPermissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) enableDailyVerseNotifications() else disableDailyVerseNotifications(showHelp = true)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -122,7 +151,7 @@ class MainActivity : AppCompatActivity() {
                 if (drawer.isDrawerOpen(GravityCompat.START)) drawer.closeDrawer(GravityCompat.START)
                 else when (screen) {
                     Screen.BOOKS -> finish()
-                    Screen.HOME, Screen.ABOUT -> showBooks()
+                    Screen.HOME, Screen.DAILY_VERSE, Screen.ABOUT -> showBooks()
                     Screen.CHAPTERS -> showBooks()
                     Screen.READER -> selectedBook?.let { selectBook(it) } ?: showBooks()
                 }
@@ -142,13 +171,16 @@ class MainActivity : AppCompatActivity() {
                     repository = dataRepository
                     books = loadedBooks
                     bookAdapter.submit(books)
-                    when {
+                    if (openDailyVerseIntent(intent)) {
+                        // Notification deep links take the reader to their exact verse.
+                    } else when {
                         restoredScreen == Screen.READER && restoredBookId != null && restoredChapterNumber != null ->
                             books.firstOrNull { it.id == restoredBookId }?.let { loadChapter(it, restoredChapterNumber) } ?: showBooks()
                         restoredScreen == Screen.CHAPTERS && restoredBookId != null ->
                             books.firstOrNull { it.id == restoredBookId }?.let { selectBook(it) } ?: showBooks()
                         restoredScreen == Screen.BOOKS -> showBooks()
                         restoredScreen == Screen.HOME -> showHome()
+                        restoredScreen == Screen.DAILY_VERSE -> showDailyVerse()
                         restoredScreen == Screen.ABOUT -> showAbout()
                         else -> showBooks()
                     }
@@ -176,12 +208,24 @@ class MainActivity : AppCompatActivity() {
         chapterEnglishTitle = findViewById(R.id.chapterEnglishTitle)
         statusText = findViewById(R.id.statusText)
         homeScreen = findViewById(R.id.homeScreen)
+        homeScroll = findViewById(R.id.homeScroll)
+        dailyVerseScroll = findViewById(R.id.dailyVerseScroll)
+        dailyVerseScreen = findViewById(R.id.dailyVerseScreen)
+        dailyVerseStatus = findViewById(R.id.dailyVerseStatus)
         booksControls = findViewById(R.id.booksControls)
         aboutScreen = findViewById(R.id.aboutScreen)
         privacyOptionsButton = findViewById(R.id.privacyOptionsButton)
         readerControls = findViewById(R.id.readerControls)
         backButton = navigationButton
         homeContinueButton = findViewById(R.id.continueButton)
+        dailyVerseCard = findViewById(R.id.dailyVerseCard)
+        dailyVerseTitle = findViewById(R.id.dailyVerseTitle)
+        dailyVerseIgbo = findViewById(R.id.dailyVerseIgbo)
+        dailyVerseEnglish = findViewById(R.id.dailyVerseEnglish)
+        dailyVerseReference = findViewById(R.id.dailyVerseReference)
+        dailyVerseCachedState = findViewById(R.id.dailyVerseCachedState)
+        dailyVerseNotificationsSwitch = findViewById(R.id.dailyVerseNotificationsSwitch)
+        dailyVerseNotificationHelp = findViewById(R.id.dailyVerseNotificationHelp)
         oldTestamentButton = findViewById(R.id.oldTestamentButton)
         newTestamentButton = findViewById(R.id.newTestamentButton)
         previousChapterButton = findViewById(R.id.previousChapterButton)
@@ -201,6 +245,7 @@ class MainActivity : AppCompatActivity() {
         navDestinations = mapOf(
             Screen.HOME to findViewById(R.id.navHome),
             Screen.BOOKS to findViewById(R.id.navBooks),
+            Screen.DAILY_VERSE to findViewById(R.id.navDailyVerse),
             Screen.ABOUT to findViewById(R.id.navAbout),
         )
 
@@ -213,6 +258,7 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<View>(R.id.navHome).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showHome() }
         findViewById<View>(R.id.navBooks).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showBooks() }
+        findViewById<View>(R.id.navDailyVerse).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showDailyVerse() }
         findViewById<View>(R.id.navAbout).setOnClickListener { drawer.closeDrawer(GravityCompat.START); showAbout() }
         privacyOptionsButton.apply {
             paintFlags = paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
@@ -220,6 +266,18 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<View>(R.id.browseButton).setOnClickListener { showBooks() }
         homeContinueButton.setOnClickListener { continueReading() }
+        dailyVerseCard.setOnClickListener { openDailyVerseInReader() }
+        dailyVerseNotificationsSwitch.isChecked = notificationPreferences.notificationsEnabled()
+        dailyVerseNotificationsSwitch.setOnCheckedChangeListener { _, checked ->
+            if (settingNotificationSwitch) return@setOnCheckedChangeListener
+            if (!checked) {
+                disableDailyVerseNotifications(showHelp = false)
+            } else if (Build.VERSION.SDK_INT >= 33 && !DailyVerseNotificationScheduler.hasPermission(this)) {
+                notificationPermissionRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                enableDailyVerseNotifications()
+            }
+        }
         oldTestamentButton.setOnClickListener { setTestament(Testament.OLD) }
         newTestamentButton.setOnClickListener { setTestament(Testament.NEW) }
         previousChapterButton.setOnClickListener { navigateChapter(-1) }
@@ -302,6 +360,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideScreens() {
         homeScreen.visibility = View.GONE
+        homeScroll.visibility = View.GONE
+        dailyVerseScreen.visibility = View.GONE
+        dailyVerseScroll.visibility = View.GONE
         booksControls.visibility = View.GONE
         aboutScreen.visibility = View.GONE
         readerControls.visibility = View.GONE
@@ -322,6 +383,7 @@ class MainActivity : AppCompatActivity() {
         navigationButton.setImageResource(R.drawable.ic_menu)
         navigationButton.contentDescription = getString(R.string.open_navigation)
         homeScreen.visibility = View.VISIBLE
+        homeScroll.visibility = View.VISIBLE
         updateContinueButton()
     }
 
@@ -356,6 +418,23 @@ class MainActivity : AppCompatActivity() {
         navigationButton.setImageResource(R.drawable.ic_menu)
         navigationButton.contentDescription = getString(R.string.open_navigation)
         aboutScreen.visibility = View.VISIBLE
+    }
+
+    private fun showDailyVerse() {
+        screen = Screen.DAILY_VERSE
+        updateAdPlacement()
+        selectedBook = null
+        selectedChapter = null
+        hideScreens()
+        screenTitle.text = getString(R.string.daily_verse_navigation)
+        setScreenTitleBookPicker(false)
+        chapterEnglishTitle.visibility = View.GONE
+        updateDrawerSelection(Screen.DAILY_VERSE)
+        navigationButton.setImageResource(R.drawable.ic_menu)
+        navigationButton.contentDescription = getString(R.string.open_navigation)
+        dailyVerseScreen.visibility = View.VISIBLE
+        dailyVerseScroll.visibility = View.VISIBLE
+        loadDailyVerseForPage()
     }
 
     private fun setTestament(testament: Testament) {
@@ -428,7 +507,12 @@ class MainActivity : AppCompatActivity() {
         selectedBook?.let { loadChapter(it, chapter.number) }
     }
 
-    private fun loadChapter(book: BibleBook, chapterNumber: Int, transition: ChapterTransition? = null) {
+    private fun loadChapter(
+        book: BibleBook,
+        chapterNumber: Int,
+        transition: ChapterTransition? = null,
+        targetVerseNumber: Int? = null,
+    ) {
         val repository = repository ?: return
         val request = ++navigationGeneration
         selectedBook = book
@@ -466,7 +550,10 @@ class MainActivity : AppCompatActivity() {
                     list.adapter = readerAdapter
                     list.visibility = View.VISIBLE
                     list.itemAnimator = null
-                    list.scrollToPosition(0)
+                    val targetPosition = targetVerseNumber?.let { target ->
+                        items.indexOfFirst { it.verseNumber == target }.takeIf { it >= 0 }
+                    } ?: 0
+                    list.scrollToPosition(targetPosition.coerceIn(0, (items.size - 1).coerceAtLeast(0)))
                     if (transition != null) {
                         list.translationX = list.width * transition.incomingSign
                         list.animate().translationX(0f).setDuration(CHAPTER_TRANSITION_MS).start()
@@ -538,6 +625,103 @@ class MainActivity : AppCompatActivity() {
         homeContinueButton.visibility = if (book != null && chapter > 0) View.VISIBLE else View.GONE
     }
 
+    private fun loadDailyVerseForPage() {
+        val dataRepository = repository ?: return
+        val generation = ++dailyVerseLoadGeneration
+        dailyVerseDisplay = null
+        dailyVerseCard.visibility = View.GONE
+        dailyVerseStatus.setText(R.string.daily_verse_loading)
+        dailyVerseStatus.visibility = View.VISIBLE
+        worker.execute {
+            val result = runCatching {
+                DailyVerseRepository(
+                    notificationPreferences,
+                    OurMannaDailyVerseApi(),
+                    dataRepository::getParallelVerse,
+                ).loadForHome()
+            }.getOrNull()
+            runOnUiThread {
+                if (isFinishing || generation != dailyVerseLoadGeneration || screen != Screen.DAILY_VERSE) return@runOnUiThread
+                dailyVerseDisplay = result
+                if (result == null) {
+                    dailyVerseCard.visibility = View.GONE
+                    dailyVerseStatus.setText(R.string.daily_verse_unavailable)
+                    dailyVerseStatus.visibility = View.VISIBLE
+                } else {
+                    dailyVerseIgbo.text = result.verse.igbo
+                    dailyVerseEnglish.text = result.verse.english
+                    dailyVerseReference.text = result.reference.displayReference
+                    if (result.isToday) {
+                        dailyVerseCachedState.visibility = View.GONE
+                    } else {
+                        dailyVerseCachedState.text = getString(R.string.daily_verse_recent, result.cacheDate)
+                        dailyVerseCachedState.visibility = View.VISIBLE
+                    }
+                    dailyVerseCard.contentDescription = getString(
+                        R.string.daily_verse_card_accessibility,
+                        result.reference.displayReference,
+                    )
+                    dailyVerseCard.visibility = View.VISIBLE
+                    dailyVerseStatus.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun openDailyVerseInReader() {
+        val verse = dailyVerseDisplay ?: return
+        val book = books.firstOrNull { it.id == verse.reference.bookId } ?: return
+        loadChapter(book, verse.reference.chapter, targetVerseNumber = verse.reference.verse)
+    }
+
+    private fun openDailyVerseIntent(source: Intent?): Boolean {
+        if (source?.hasExtra(EXTRA_DAILY_BOOK_ID) != true) return false
+        val bookId = source.getStringExtra(EXTRA_DAILY_BOOK_ID) ?: return false
+        val chapter = source.getIntExtra(EXTRA_DAILY_CHAPTER, 0)
+        val verse = source.getIntExtra(EXTRA_DAILY_VERSE, 0)
+        if (chapter <= 0 || verse <= 0) return false
+        val book = books.firstOrNull { it.id == bookId } ?: return false
+        loadChapter(book, chapter, targetVerseNumber = verse)
+        source.removeExtra(EXTRA_DAILY_BOOK_ID)
+        source.removeExtra(EXTRA_DAILY_CHAPTER)
+        source.removeExtra(EXTRA_DAILY_VERSE)
+        return true
+    }
+
+    private fun enableDailyVerseNotifications() {
+        notificationPreferences.setNotificationsEnabled(true)
+        dailyVerseNotificationHelp.visibility = View.GONE
+        DailyVerseNotificationScheduler.schedule(this)
+    }
+
+    private fun disableDailyVerseNotifications(showHelp: Boolean) {
+        notificationPreferences.setNotificationsEnabled(false)
+        DailyVerseNotificationScheduler.cancel(this)
+        settingNotificationSwitch = true
+        dailyVerseNotificationsSwitch.isChecked = false
+        settingNotificationSwitch = false
+        dailyVerseNotificationHelp.visibility = if (showHelp) View.VISIBLE else View.GONE
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        openDailyVerseIntent(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!::dailyVerseNotificationsSwitch.isInitialized) return
+        if (notificationPreferences.notificationsEnabled() && !DailyVerseNotificationScheduler.hasPermission(this)) {
+            disableDailyVerseNotifications(showHelp = true)
+        } else {
+            settingNotificationSwitch = true
+            dailyVerseNotificationsSwitch.isChecked = notificationPreferences.notificationsEnabled()
+            settingNotificationSwitch = false
+            dailyVerseNotificationHelp.visibility = View.GONE
+        }
+    }
+
     private fun setLayout(layout: ReaderLayout) {
         readerLayout = layout
         preferences.edit { putString("layout", layout.name) }
@@ -578,7 +762,7 @@ class MainActivity : AppCompatActivity() {
         when (screen) {
             Screen.READER -> selectedBook?.let { selectBook(it) }
             Screen.CHAPTERS -> showBooks()
-            Screen.BOOKS, Screen.HOME, Screen.ABOUT -> showBooks()
+            Screen.BOOKS, Screen.HOME, Screen.DAILY_VERSE, Screen.ABOUT -> showBooks()
         }
     }
 
@@ -692,6 +876,7 @@ class MainActivity : AppCompatActivity() {
             Screen.BOOKS -> AdPlacement.BOOKS
             Screen.CHAPTERS -> AdPlacement.CHAPTERS
             Screen.READER -> AdPlacement.READER
+            Screen.DAILY_VERSE -> AdPlacement.DAILY_VERSE
             Screen.ABOUT -> AdPlacement.ABOUT
         }
         currentAdsController()?.setBannerPlacement(this, placement)
@@ -784,7 +969,10 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private companion object {
+    internal companion object {
+        const val EXTRA_DAILY_BOOK_ID = "com.ucscode.gtransbible.extra.DAILY_BOOK_ID"
+        const val EXTRA_DAILY_CHAPTER = "com.ucscode.gtransbible.extra.DAILY_CHAPTER"
+        const val EXTRA_DAILY_VERSE = "com.ucscode.gtransbible.extra.DAILY_VERSE"
         const val STATE_SCREEN = "screen"
         const val STATE_TESTAMENT = "testament"
         const val STATE_BOOK_ID = "book_id"
